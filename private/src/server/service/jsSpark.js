@@ -18,10 +18,6 @@ module.exports = function jsSPark() {
                 return this;
             },
 
-            value: function () {
-                return operation().value();
-            },
-
             createTask: createTask
         };
 
