@@ -2,3 +2,4 @@ node_modules
 private/data/drop
 private/data/pickup
 private/src/client/component
+.idea
