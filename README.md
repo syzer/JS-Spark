@@ -49,4 +49,4 @@ This project is about to reimplement some nice things from the world of big data
 resources you can use to dive into the topic:
 
 * [Map-Reduce revisited](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.104.5859&rep=rep1&type=pdf)
-* [Awesome BigData - A curated list of awesome frameworks, ressources and other things.](https://github.com/rb2k/awesome-bigdata)
+* [Awesome BigData - A curated list of awesome frameworks, ressources and other things.](https://github.com/onurakpolat/awesome-bigdata)
