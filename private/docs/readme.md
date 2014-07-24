@@ -14,7 +14,7 @@ DI
 module pattern:
 
 file `strategy.js` in `clients/push/strategy`
-```!JavaScript
+```JavaScript
 
 module.exports = function strategyPushClients(arraySerializerService, clientQueService, when) {
 
@@ -48,7 +48,7 @@ module.exports = function strategyPushClients(arraySerializerService, clientQueS
 usage
 =====
 
-```!JavaScript
+```JavaScript
 
     var clientsPushStrategy = sm.get('model.clients.push.strategy');
 
@@ -61,7 +61,7 @@ usage
 instantiate
 -----------
 
-```!JavaScript
+```JavaScript
 
     //...
     'model.strategy.push.clients': function addService(sm) {
