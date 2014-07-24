@@ -49,6 +49,11 @@ var services = {
     },
     // Lets you use HTTP verbs such as PUT or DELETE in places you normally can't.
     methodOverride: require('method-override')(),
+    'service.serializer': function addService(di) {
+        return require(ROOT_PATH + 'service/serializer')(
+            JSON
+        );
+    },
     session: function addService(di) {
         return require('express-session')(
             { secret: "shhhhhhhhh!"}

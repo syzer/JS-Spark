@@ -7,6 +7,16 @@ var io = require('socket.io'),
     clients = [],           // TODO in redis
     _ = require('lodash');
 
+var ROOT = './private/src/server/';
+
+// DI container
+var services = require(ROOT + 'config/di').services;
+
+// setup Dependencies
+var di = require(ROOT + 'controller/di')(services);
+
+var serializer = di.get('service.serializer');
+
 console.log('Server listening on 8000');
 
 // register new clients
@@ -36,7 +46,7 @@ task = JSPark(_.range(10))
     }).createTask();
 console.log(task);
 
-serializedTask = JSON.stringify(task, functionStringify);
+serializedTask = serializer.stringify(task, functionStringify);
 
 // spam clients with meaning-full task, like good PM
 setInterval(function () {
@@ -84,33 +94,4 @@ function JSPark(data) {
             data: array
         }
     }
-}
-
-
-// JSON serializer helpers
-function functionStringify(key, value) {
-    if ('function' === typeof(value)) {
-        return value.toString();
-    }
-    return value;
-}
-
-function functionCreate(key, value) {
-    if (!key) {
-        return value;
-    }
-
-    if (typeof value === 'string') {
-        var funcRegExp = /function[^\(]*\(([^\)]*)\)[^\{]*{([^\}]*)\}/,
-            match = value.match(funcRegExp);
-        if (match) {
-            var args = match[1]
-                .split(',')
-                .map(function (arg) {
-                    return arg.replace(/\s+/, '');
-                });
-            return new Function(args, match[2]);
-        }
-    }
-    return value;
 }
