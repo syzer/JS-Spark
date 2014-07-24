@@ -2,7 +2,7 @@ module.exports = function jsSParkService() {
 
     return function(data) {
 
-        var operation,
+        var operations = [],
             array = data,
             callbacks = [];
 
@@ -12,10 +12,21 @@ module.exports = function jsSParkService() {
             map: function (callback) {
                 callbacks.push(callback.toString());
 
-                operation = function (_, data, callbacks) {
+                operations.push({
+                  chaining: function(chain, callback) {
+                    return chain.map(callback);
+                  },
+                  callback: callback
+                });
+
+                operations.push(function (_, data, callbacks) {
                     return _.chain(data).map(callbacks[0]);
-                };
+                });
                 return this;
+            },
+
+            filter: function (callback) {
+
             },
 
             createTask: createTask
@@ -24,9 +35,12 @@ module.exports = function jsSParkService() {
         // factory method
         function createTask() {
             return {
-                operation: operation,
+                operations: operations,
                 execute: function (_, data, callbacks) {
-                    return this.operation(_, data, callbacks);
+                    var chain = _.chain(data)
+                    var operation = this.operations[0]
+                    chain = operation.chaining(chain, operation.callback)
+                    return chain;
                 },
                 callbacks: callbacks,
                 data: array
