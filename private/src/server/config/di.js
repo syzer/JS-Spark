@@ -48,7 +48,7 @@ var services = {
         return require(ROOT_PATH + 'service/jsSpark')();
     },
     log: function addService(di) {
-        return require(ROOT_PATH + 'services/logging').createLog();
+        return require(ROOT_PATH + 'service/logging').createLog();
     },
     // Lets you use HTTP verbs such as PUT or DELETE in places you normally can't.
     methodOverride: require('method-override')(),
@@ -62,7 +62,19 @@ var services = {
             { secret: "shhhhhhhhh!"}
         );
     },
+	static_: function addService(di) {
+		// XXX This is a truly evil way to construct paths
+		var projRoot = __dirname.slice(0, __dirname.search(/[\/\\]private[\/\\]/));
+		var sep = __dirname[1] === ":" && "\\" || "/";
+		var statRoot = projRoot + sep + "public" + sep + "static";
+		console.log(statRoot);
+		return di.get("express")["static"](statRoot);
+	},
     util: require('util'),
-    when: require('when')
+    when: require('when'),
+	"controller.index": function addService(di) {
+		return require(ROOT_PATH + "service/index")(ROOT_PATH);
+	},
+
 };
 module.exports.services = services;

@@ -1,7 +1,7 @@
 /**
  * Created by syzer on 4/16/2014.
  */
-module.exports = function expressService(app, port, cookieParser, compression, http/*, validator*/, session) {
+module.exports = function expressService(app, port, cookieParser, compression, http/*, validator*/, session, static_) {
     'use strict';
 
     var expressApp;
@@ -13,6 +13,10 @@ module.exports = function expressService(app, port, cookieParser, compression, h
         getApp: function () {
             return expressApp;
         },
+
+		getServer: function () {
+			return server;
+		},
 
         registerRouteHandler: function (route, handler, methodArr) {
             var methods = methodArr || ['GET'];
@@ -40,6 +44,7 @@ module.exports = function expressService(app, port, cookieParser, compression, h
             app.use(cookieParser);
             app.use(compression);
             app.use(session);
+			app.use('/static', static_);
 
             server = http
                 .createServer(app)

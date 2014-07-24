@@ -2,9 +2,22 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <title>JSPark client</title>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/static/js/_.js"></script>
+	<script src="/static/js/script.js"></script>
+	<style>
+		#task {
+			white-space: pre-wrap;
+			font-family: monospace;
+		}
+	</style>
 </head>
 <body>
-
+	<ul>
+		<li>Sequence: <span id="seq"></span>
+		<li>Last task: <div><span id="task"></span></div>
+		<li>Last result: <span id="result"></span>
+	</ul>
 </body>
 </html>

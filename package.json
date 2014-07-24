@@ -7,7 +7,7 @@
     "connect": "^1.8.5",
     "express": "^4.6.1",
     "jade": "0.20.0",
-    "mongoose": "2.4.8",
+    "mongoose": "2.5.12",
     "socket.io": "^1.0.6",
     "lodash": "^2.4.1",
     "express-session": "^1.7.0",
