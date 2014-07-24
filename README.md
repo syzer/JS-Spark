@@ -1,14 +1,12 @@
 WHAT
 ====
-Distributed real time analytics using JAVASCRIPT.
+Distributed real time analytics using JavaScript.
 JavaScript re imagine of fabulous Spark project.
-
 
 WHY
 ===
-Can run on multiple clients and browsers. Clients Do not need to install any Java, jar, plugins.
-Hadoop is quite slow and requires maintaining cluster.
-
+Can run on multiple clients, e.g. browsers. Clients do not need to install anything like Java or other plugins.
+Hadoop is quite slow and requires maintaining cluster - we want to do better.
 
 Possibilities are endless.
 --------------------------
@@ -27,12 +25,28 @@ But using JSpark you can totally reverse this trend. Build websites that run FAS
 
 HOW
 ====
-Proof Of Concept(POC):
->nodemon server.js
->nodemon client.js
+Prerequisites
 
-run `npm install`
-run `./build/gulp`
-run `node serverExpress.js`
+    run `npm install`
+    run `./build/gulp`
+
+Proof Of Concept(POC):
+
+        nodemon server.js
+        nodemon client.js
+
+For the Webapplication:
+
+    run `node serverExpress.js`
+
 
 wait for clients to do all heavy lifting
+
+
+Get Started
+===========
+This project is about to reimplement some nice things from the world of big data, so there are of course some nice
+resources you can use to dive into the topic:
+
+* [Map-Reduce revisited](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.104.5859&rep=rep1&type=pdf)
+* [Awesome BigData - A curated list of awesome frameworks, ressources and other things.](https://github.com/onurakpolat/awesome-bigdata)

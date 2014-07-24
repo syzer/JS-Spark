@@ -5,6 +5,8 @@
 var io = require('socket.io'),
     ioServer = io.listen(8000),
     clients = [],           // TODO in redis
+    jsSpark,
+    serializer,
     _ = require('lodash');
 
 var ROOT = './private/src/server/';
@@ -15,7 +17,8 @@ var services = require(ROOT + 'config/di').services;
 // setup Dependencies
 var di = require(ROOT + 'controller/di')(services);
 
-var serializer = di.get('service.serializer');
+serializer = di.get('service.serializer');
+jsSpark = di.get('service.jsSpark');
 
 console.log('Server listening on 8000');
 
@@ -40,14 +43,13 @@ ioServer.on('connection', function (socket) {
 });
 var task, serializedTask;
 
-task = JSPark(_.range(10))
+task = jsSpark(_.range(10))
     .map(function (el) {
         return el * 2;
     }).createTask();
 console.log(task);
 
 serializedTask = serializer.stringify(task);
-
 // spam clients with meaning-full task, like good PM
 setInterval(function () {
     var randomClient;
@@ -57,41 +59,3 @@ setInterval(function () {
         clients[randomClient].emit('task', serializedTask);
     }
 }, 5000);
-
-function JSPark(data) {
-
-    var operation,
-        array = data,
-        callbacks = [];
-
-    return {
-
-        // operations array??
-        map: function (callback) {
-            callbacks.push(callback.toString());
-
-            operation = function (_, data, callbacks) {
-                return _.chain(data).map(callbacks[0]);
-            };
-            return this;
-        },
-
-        value: function () {
-            return operation().value();
-        },
-
-        createTask: createTask
-    };
-
-    // factory method
-    function createTask() {
-        return {
-            operation: operation,
-            execute: function (_, data, callbacks) {
-                return this.operation(_, data, callbacks);
-            },
-            callbacks: callbacks,
-            data: array
-        }
-    }
-}
