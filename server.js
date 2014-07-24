@@ -18,7 +18,7 @@ var services = require(ROOT + 'config/di').services;
 var di = require(ROOT + 'controller/di')(services);
 
 serializer = di.get('service.serializer');
-jsSpark = di.get('jsSpark');
+jsSpark = di.get('service.jsSpark');
 
 console.log('Server listening on 8000');
 

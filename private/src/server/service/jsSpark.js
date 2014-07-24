@@ -1,4 +1,4 @@
-module.exports = function jsSPark() {
+module.exports = function jsSParkService() {
 
     return function(data) {
 
