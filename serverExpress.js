@@ -29,9 +29,6 @@ var buildModuleService = function () {
 // or getApp / server
 server = di.add('service.express', buildModuleService);
 
-// watches new data
-di.get('service.fileWatcher').watcher.start();
-
 // TODO Setup Socket.IO
 var io = io.listen(server);
 io.sockets.on('connection', function(socket){
