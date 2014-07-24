@@ -76,10 +76,6 @@ function JSPark(data) {
             return this;
         },
 
-        value: function () {
-            return operation().value();
-        },
-
         createTask: createTask
     };
 
