@@ -4,17 +4,22 @@
 (function() {
 
 	var ioClient = io.connect();
+	var seq = 0;
 
 	ioClient.on('task', function (serializedTask) {
+		seq++;
 		console.log(serializedTask);
+		document.querySelector("#seq").textContent = seq;
+		document.querySelector("#task").textContent = serializedTask;
 		var task,
 			response;
 		try {
 			task = JSON.parse(serializedTask, functionCreate);
 			response = task.execute(_, task.data, task.callbacks).value();
-
+			document.querySelector("#result").textContent = response;
 		} catch (e) {
 			console.log(e.toString());
+			document.querySelector("#result").textContent = e.toString();
 		}
 		ioClient.emit('response', response.toString());
 		console.log('Client response', response);
