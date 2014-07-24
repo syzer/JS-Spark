@@ -1,9 +1,9 @@
 {
   "name": "YOUR-PROJECT-NAME-HERE",
   "description": "YOUR PROJECT DESCRIPTION HERE",
-  "author": "YOUR NAME <your@emailaddress.com>",
+  "author": "syzer <syzer3@gmail.com>",
   "version": "0.0.1",
-  "dependencies": {
+    "dependencies": {
     "connect": "^1.8.5",
     "express": "^4.6.1",
     "jade": "0.20.0",
