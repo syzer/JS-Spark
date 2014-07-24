@@ -46,7 +46,7 @@ task = JSPark(_.range(10))
     }).createTask();
 console.log(task);
 
-serializedTask = serializer.stringify(task, functionStringify);
+serializedTask = serializer.stringify(task);
 
 // spam clients with meaning-full task, like good PM
 setInterval(function () {
