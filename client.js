@@ -27,7 +27,7 @@ function functionCreate(key, value) {
         return value;
     }
 
-    if (typeof value === 'string') {
+    if ('string' === typeof value) {
         var funcRegExp = /function[^\(]*\(([^\)]*)\)[^\{]*{([^\}]*)\}/,
             match = value.match(funcRegExp);
         if (match) {
