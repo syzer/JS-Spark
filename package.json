@@ -1,0 +1,28 @@
+{
+  "name": "YOUR-PROJECT-NAME-HERE",
+  "description": "YOUR PROJECT DESCRIPTION HERE",
+  "author": "YOUR NAME <your@emailaddress.com>",
+  "version": "0.0.1",
+  "dependencies": {
+    "connect": "^1.8.5",
+    "express": "^4.6.1",
+    "jade": "0.20.0",
+    "mongoose": "2.4.8",
+    "socket.io": "^1.0.6",
+    "lodash": "^2.4.1",
+    "express-session": "^1.7.0",
+    "method-override": "^2.1.2",
+    "compression": "^1.0.9",
+    "body-parser": "^1.5.0",
+    "cookie-parser": "^1.3.2",
+    "socket.io-client": "^1.0.6"
+  },
+  "devDependencies": {
+    "vows": "0.5.x",
+    "mocha": "*",
+    "should": "*",
+    "bower": "^1.3.8",
+    "nodemon": "^1.2.1"
+  },
+  "engine": "node >= 0.6.6"
+}
