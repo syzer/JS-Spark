@@ -1,14 +1,15 @@
-WHAT
+What is JS-Spark
 ====
 Distributed real time analytics using JavaScript.
 JavaScript re imagine of fabulous Apache Spark project.
 
-WHY
+Why
 ===
-Can run on multiple clients, e.g. browsers. Clients do not need to install anything like Java or other plugins.
-Hadoop is quite slow and requires maintaining cluster - we want to do better.
+Hadoop is quite slow and requires maintaining cluster - we want can do better. Imagine that theres no need to setup expansive cluster/clud solutions. Use webrowsers! Easily scale to multiple clients. Clients do not need to install anything like Java or other plugins.
 
-Possibilities are endless.
+Setup in mater of minutes and you are good to go.
+
+Possibilities are endless:
 --------------------------
 No need to setup expensive cluster. The setup takes 5 min and you are good to go. You can do it on one machine. Even on Raspberry Pi
 
@@ -28,9 +29,9 @@ But using JSpark you can totally reverse this trend. Build websites that run FAS
 * Free to use.
 
 
-HOW
+How
 ====
-Prerequisites
+Prerequisites, install any! server (ex: Node.js), then:
 
     run `npm install`
     run `./build/gulp`
