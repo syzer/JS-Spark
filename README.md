@@ -34,7 +34,7 @@ How
 Prerequisites, install any! server (ex: Node.js), then:
 
     run `npm install`
-    run `./build/gulp`
+
 
 Proof Of Concept(POC):
 
