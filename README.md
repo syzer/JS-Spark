@@ -1,7 +1,7 @@
 WHAT
 ====
 Distributed real time analytics using JavaScript.
-JavaScript re imagine of fabulous Spark project.
+JavaScript re imagine of fabulous Apache Spark project.
 
 WHY
 ===
@@ -19,6 +19,9 @@ But using JSpark you can totally reverse this trend. Build websites that run FAS
 
 * Use as Big data analytics. Connect to Hadoop HDFS and process even terabytes of data.
 
+* Use to safely transfer huge ammount of data to remote computers.
+
+* Synchronize data between multiple smartphones.. even in Africa
 
 * Free to use.
 
