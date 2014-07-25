@@ -23,6 +23,8 @@ But using JSpark you can totally reverse this trend. Build websites that run FAS
 
 * Synchronize data between multiple smartphones.. even in Africa
 
+* No expensive cluster setup required!
+
 * Free to use.
 
 
@@ -37,6 +39,8 @@ Proof Of Concept(POC):
 
         nodemon server.js
         nodemon client.js
+        
+Start on youch machine and see how the clients do all calculation.
 
 For the Webapplication:
 
