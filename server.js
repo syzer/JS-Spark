@@ -46,7 +46,11 @@ var task, serializedTask;
 task = jsSpark(_.range(10))
     .map(function (el) {
         return el * 2;
-    }).createTask();
+    })
+    .filter(function (el) {
+        return el % 5 != 0;
+    })
+    .createTask();
 console.log(task);
 
 serializedTask = serializer.stringify(task);

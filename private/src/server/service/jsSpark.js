@@ -23,6 +23,13 @@ module.exports = function jsSParkService() {
             },
 
             filter: function (callback) {
+                operations.push({
+                  chaining: function(chain, callback) {
+                    return chain.filter(callback);
+                  },
+                  callback: callback
+                });
+                return this;
 
             },
 
