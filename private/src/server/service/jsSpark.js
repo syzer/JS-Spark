@@ -19,9 +19,6 @@ module.exports = function jsSParkService() {
                   callback: callback
                 });
 
-                operations.push(function (_, data, callbacks) {
-                    return _.chain(data).map(callbacks[0]);
-                });
                 return this;
             },
 
@@ -37,9 +34,11 @@ module.exports = function jsSParkService() {
             return {
                 operations: operations,
                 execute: function (_, data, callbacks) {
-                    var chain = _.chain(data)
-                    var operation = this.operations[0]
-                    chain = operation.chaining(chain, operation.callback)
+                    var chain = _.chain(data);
+                    for (var i = 0; i < this.operations.length; i++) {
+
+                      chain = this.operations[i].chaining(chain, this.operations[i].callback)
+                    }
                     return chain;
                 },
                 callbacks: callbacks,

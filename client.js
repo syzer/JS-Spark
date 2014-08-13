@@ -14,7 +14,7 @@ ioClient.on('task', function (serializedTask) {
         response = task.execute(_, task.data, task.callbacks).value();
 
     } catch (e) {
-        console.log(e.toString());
+        console.log("Parse error:", e.toString());
     }
     ioClient.emit('response', response.toString());
     console.log('Client response', response);
@@ -28,7 +28,7 @@ function functionCreate(key, value) {
     }
 
     if ('string' === typeof value) {
-        var funcRegExp = /function[^\(]*\(([^\)]*)\)[^\{]*{([^\}]*)\}/,
+        var funcRegExp = /^function[^\(]*\(([^\)]*)\)[^\{]*{(([^\}]*|\}[^$])*)\}$/,
             match = value.match(funcRegExp);
         if (match) {
             var args = match[1]
