@@ -3,14 +3,13 @@ module.exports = function jsSParkService() {
     return function(data) {
 
         var operations = [],
-            array = data,
-            callbacks = [];
+            array = data
 
         return {
 
             // operations array??
             map: function (callback) {
-                callbacks.push(callback.toString());
+
 
                 operations.push({
                   chaining: function(chain, callback) {
@@ -48,7 +47,6 @@ module.exports = function jsSParkService() {
                     }
                     return chain;
                 },
-                callbacks: callbacks,
                 data: array
             }
         }
