@@ -1,6 +1,6 @@
 module.exports = function jsSParkService() {
 
-    return function(data) {
+    return function (data) {
 
         var operations = [],
             array = data;
@@ -10,10 +10,10 @@ module.exports = function jsSParkService() {
             // operations array??
             map: function (callback) {
                 operations.push({
-                  chaining: function(chain, callback) {
-                    return chain.map(callback);
-                  },
-                  callback: callback
+                    chaining: function (chain, callback) {
+                        return chain.map(callback);
+                    },
+                    callback: callback
                 });
 
                 return this;
@@ -21,10 +21,10 @@ module.exports = function jsSParkService() {
 
             filter: function (callback) {
                 operations.push({
-                  chaining: function(chain, callback) {
-                    return chain.filter(callback);
-                  },
-                  callback: callback
+                    chaining: function (chain, callback) {
+                        return chain.filter(callback);
+                    },
+                    callback: callback
                 });
 
                 return this;
@@ -37,14 +37,17 @@ module.exports = function jsSParkService() {
         function createTask() {
             return {
                 operations: operations,
+
                 execute: function (_, data, callbacks) {
                     var chain = _.chain(data);
-                    for (var i = 0; i < this.operations.length; i++) {
-
-                      chain = this.operations[i].chaining(chain, this.operations[i].callback)
-                    }
+                    // TODO move to reduce?
+                    this.operations.forEach(function (operation, i) {
+                        chain = operation.chaining(chain, operation.callback);
+                    });
+                    
                     return chain;
                 },
+
                 data: array
             }
         }

@@ -6,7 +6,7 @@ var io = require('socket.io-client'),
     _ = require('lodash');
 
 ioClient.on('task', function (serializedTask) {
-    console.log(serializedTask);
+    //console.log(serializedTask);
     var task,
         response;
     try {

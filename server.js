@@ -10,17 +10,16 @@ var io = require('socket.io'),
     _ = require('lodash');
 
 var ROOT = './private/src/server/';
-
 // DI container
 var services = require(ROOT + 'config/di').services;
 
 // setup Dependencies
 var di = require(ROOT + 'controller/di')(services);
 
+console.log('Server listening on 8000');
+
 serializer = di.get('service.serializer');
 jsSpark = di.get('service.jsSpark');
-
-console.log('Server listening on 8000');
 
 // register new clients
 ioServer.on('connection', function (socket) {
@@ -36,22 +35,24 @@ ioServer.on('connection', function (socket) {
         }
     });
 
+    // process client response
     socket.on('response', function (data) {
         console.log('Client response ', socket.id);
         console.log(data.split(','));
     });
 });
+
 var task, serializedTask;
 
 task = jsSpark(_.range(10))
-    .map(function (el) {
+    .map(function multiplyBy2(el) {
         return el * 2;
     })
-    .filter(function (el) {
-        return el % 5 != 0;
+    .filter(function remove5and10(el) {
+        return el % 5 !== 0;
     })
     .createTask();
-console.log(task);
+//console.log(task);
 
 serializedTask = serializer.stringify(task);
 // spam clients with meaning-full task, like good PM
