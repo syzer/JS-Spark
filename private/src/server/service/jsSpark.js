@@ -29,6 +29,17 @@ module.exports = function jsSParkService() {
                 return this;
             },
 
+            reduce: function (callback) {
+                operations.push({
+                    chaining: function (chain, callback) {
+                        return chain.reduce(callback);
+                    },
+                    callback: callback
+                });
+
+                return this;
+            },
+
             createTask: createTask
         };
 

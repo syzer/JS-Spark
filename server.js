@@ -51,6 +51,10 @@ task = jsSpark(_.range(10))
     .filter(function remove5and10(el) {
         return el % 5 !== 0;
     })
+    // sum of  [ 2, 4, 6, 8, 12, 14, 16, 18 ] => 80
+    .reduce(function sumUp(arr, el) {
+        return arr + el;
+    })
     .createTask();
 //console.log(task);
 
