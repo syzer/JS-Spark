@@ -41,9 +41,9 @@ Proof Of Concept(POC):
         nodemon server.js
         nodemon client.js
         
-Start on youch machine and see how the clients do all calculation.
+Start on your machine and see how the clients do all calculation.
 
-For the Webapplication:
+For the Web Application:
 
     run `node serverExpress.js`
 
@@ -53,8 +53,8 @@ wait for clients to do all heavy lifting
 
 Get Started
 ===========
-This project is about to reimplement some nice things from the world of big data, so there are of course some nice
+This project is about to reimplemented some nice things from the world of big data, so there are of course some nice
 resources you can use to dive into the topic:
 
 * [Map-Reduce revisited](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.104.5859&rep=rep1&type=pdf)
-* [Awesome BigData - A curated list of awesome frameworks, ressources and other things.](https://github.com/onurakpolat/awesome-bigdata)
+* [Awesome BigData - A curated list of awesome frameworks, resources and other things.](https://github.com/onurakpolat/awesome-bigdata)
