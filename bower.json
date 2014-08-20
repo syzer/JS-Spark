@@ -1,0 +1,25 @@
+{
+  "name": "JS-Spark",
+  "version": "0.0.0",
+  "homepage": "https://github.com/syzer/JS-Spark",
+  "authors": [
+    "syzer <syzer3@gmail.com>"
+  ],
+  "description": "Distributed computing cluster using web browsers",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "spark",
+    "distributed",
+    "computing",
+    "rpc",
+    "hadoop",
+    "hdfs"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "papa-parse": "~3.0.1"
+  }
+}
