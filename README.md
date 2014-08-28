@@ -5,7 +5,7 @@ JavaScript re imagine of fabulous Apache Spark project.
 
 Why
 ===
-Hadoop is quite slow and requires maintaining cluster - we want can do better. Imagine that theres no need to setup expansive cluster/clud solutions. Use webrowsers! Easily scale to multiple clients. Clients do not need to install anything like Java or other plugins.
+Hadoop is quite slow and requires maintaining cluster - we want to do better. Imagine that theres no need to setup expansive cluster/clud solutions. Use webrowsers! Easily scale to multiple clients. Clients do not need to install anything like Java or other plugins.
 
 Setup in mater of minutes and you are good to go.
 
