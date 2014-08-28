@@ -44,6 +44,9 @@ var services = {
     events: require('events'),
     http: require('http'),
     io: require('socket.io'),
+    'io.server': function addService(di) {
+        return di.get('io').listen(8000);
+    },
     'service.jsSpark': function addService(di) {
         return require(ROOT_PATH + 'service/jsSpark')();
     },

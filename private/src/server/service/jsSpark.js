@@ -46,12 +46,14 @@ module.exports = function jsSParkService() {
         // factory method
         function createTask() {
             return {
+
                 operations: operations,
 
                 execute: function (_, data, callbacks) {
                     var chain = _.chain(data);
                     // TODO move to reduce?
                     this.operations.forEach(function (operation, i) {
+
                         chain = operation.chaining(chain, operation.callback);
                     });
 

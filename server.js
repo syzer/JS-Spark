@@ -2,12 +2,13 @@
  * Created by syzer on 7/24/2014.
  * Its just a Proof of Concept
  */
-var io = require('socket.io'),
-    ioServer = io.listen(8000),
+var io,
+    ioServer,
     clients = [],           // TODO in redis
     jsSpark,
     serializer,
-    _ = require('lodash');
+    _;
+
 
 var ROOT = './private/src/server/';
 // DI container
@@ -16,7 +17,12 @@ var services = require(ROOT + 'config/di').services;
 // setup Dependencies
 var di = require(ROOT + 'controller/di')(services);
 
-console.log('Server listening on 8000');
+// lodash
+_ = di.get('_');
+
+io = di.get('io');
+ioServer = di.get('io.server');
+console.log('Io server listening on 8000');
 
 serializer = di.get('service.serializer');
 jsSpark = di.get('service.jsSpark');
@@ -55,6 +61,9 @@ task = jsSpark(_.range(10))
     .reduce(function sumUp(arr, el) {
         return arr + el;
     })
+//    .sortBy(function(num){
+//        return num;
+//    })
     .createTask();
 //console.log(task);
 
