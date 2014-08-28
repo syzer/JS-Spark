@@ -10,7 +10,7 @@ var _ = require('lodash');
 var input = '';
 var output = '';
 
-describe('ClientExecutesComputation', function () {
+describe('Client Executes Computation', function () {
 
     afterEach(function (done) {
         setTimeout(done, 60);
