@@ -3,6 +3,7 @@
  */
 'use strict';
 var ROOT_PATH = __dirname + '/../';
+var DATA_PATH = ROOT_PATH + '../data/';
 var PROD_SETTINGS = 'production';
 
 var services = {
@@ -34,7 +35,7 @@ var services = {
     compression: require('compression')(),
     connect: require('connect'),
     config: function addService(di) {
-        var config = require(ROOT_PATH + 'config/config')();
+        var config = require(ROOT_PATH + 'config/config')(ROOT_PATH, DATA_PATH);
         // use adapter
         if (process.env.NODE_ENV === PROD_SETTINGS) {
             console.log('Running in production\n');
@@ -63,11 +64,15 @@ var services = {
         return require(ROOT_PATH + 'service/jsSpark')();
     },
     log: function addService(di) {
-        return require(ROOT_PATH + 'service/logging').createLog();
+        return require(ROOT_PATH + 'service/logging')(
+            di.get('config'),
+            di.get('winston')
+        ).createLog();
     },
     'service.manager': function addService(di) {
         return require(ROOT_PATH + 'service/manager')(
-            di.get('service.dispatcher')
+            di.get('service.dispatcher'),
+            di.get('log')
         );
     },
     // Lets you use HTTP verbs such as PUT or DELETE in places you normally can't.
@@ -91,6 +96,7 @@ var services = {
         return di.get("express")["static"](statRoot);
     },
     util: require('util'),
+    winston: require('winston'),
     when: require('when')
 };
 module.exports.services = services;
