@@ -2,7 +2,6 @@ module.exports = function manager(dispatcher) {
 
     //private
     var task = [];
-    var dispatcher;
     return {
         init: init,
         addTask: addTask
