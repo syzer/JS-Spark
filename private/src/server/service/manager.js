@@ -1,20 +1,21 @@
-module.exports = function manager() {
+module.exports = function manager(dispatcher) {
 
     //private
-    // var workers = [];
-
+    var task = [];
+    var dispatcher;
     return {
-        addClient: addClient,
+        init: init,
         addTask: addTask
     }
 
     // public methods
-    function addClient(socket) {
-      workers.push({})
+    function init() {
+      dispatcher.init()
     }
 
-    function addTask() {
+    function addTask(task) {
 
+      tasks.push(task)
     }
 
 

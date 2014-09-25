@@ -46,6 +46,11 @@ var services = {
     'controller.index': function addService(di) {
         return require(ROOT_PATH + 'service/index')(ROOT_PATH);
     },
+    'service.dispatcher': function addService(di) {
+        return require(ROOT_PATH + 'service/dispatcher')(
+            // di.get('log')
+        );
+    },
     port: (process.env.PORT || 8081),
     exec: require('child_process').exec,
     express: require('express'),
@@ -66,6 +71,7 @@ var services = {
     },
     'service.manager': function addService(di) {
         return require(ROOT_PATH + 'service/manager')(
+            di.get('service.dispatcher')
             di.get('log')
         );
     },
