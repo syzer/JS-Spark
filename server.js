@@ -30,27 +30,6 @@ jsSpark = di.get('service.jsSpark');
 manager = di.get('service.manager');
 manager.init()
 
-// register new clients
-ioServer.on('connection', function (socket) {
-    console.info('New client ', socket.id);
-    clients.push(socket);
-
-    // drop old clients
-    socket.on('disconnect', function () {
-        var index = clients.indexOf(socket);
-        if (index != -1) {
-            console.info('RIP client', socket.id);
-            clients.splice(index, 1);
-        }
-    });
-
-    // process client response
-    socket.on('response', function (data) {
-        console.log('Client response ', socket.id);
-        console.log(data.split(','));
-    });
-});
-
 var task, serializedTask;
 
 task = jsSpark(_.range(10))
