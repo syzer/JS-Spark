@@ -28,7 +28,7 @@ console.log('Io server listening on 8000');
 serializer = di.get('service.serializer');
 jsSpark = di.get('service.jsSpark');
 manager = di.get('service.manager');
-manager.init()
+manager.init();
 
 var task, serializedTask;
 
