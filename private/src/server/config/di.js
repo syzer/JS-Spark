@@ -67,7 +67,7 @@ var services = {
     },
     'service.manager': function addService(di) {
         return require(ROOT_PATH + 'service/manager')(
-            // di.get('log')
+            di.get('service.dispatcher')
         );
     },
     // Lets you use HTTP verbs such as PUT or DELETE in places you normally can't.
