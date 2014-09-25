@@ -53,6 +53,16 @@ var services = {
     log: function addService(di) {
         return require(ROOT_PATH + 'service/logging').createLog();
     },
+    "service.manager": function addService(di) {
+      return require(ROOT_PATH + 'service/manager')(
+          // di.get('log')
+        );
+    },
+    "service.dispatcher": function addService(di) {
+      return require(ROOT_PATH + 'service/dispatcher')(
+          // di.get('log')
+        );
+    },
     // Lets you use HTTP verbs such as PUT or DELETE in places you normally can't.
     methodOverride: require('method-override')(),
     'service.serializer': function addService(di) {
@@ -75,9 +85,15 @@ var services = {
     },
     util: require('util'),
     when: require('when'),
+<<<<<<< Updated upstream
     "controller.index": function addService(di) {
         return require(ROOT_PATH + "service/index")(ROOT_PATH);
     },
 
+=======
+	"controller.index": function addService(di) {
+		return require(ROOT_PATH + "service/index")(ROOT_PATH);
+	},
+>>>>>>> Stashed changes
 };
 module.exports.services = services;

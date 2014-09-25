@@ -6,6 +6,7 @@ var io,
     ioServer,
     clients = [],           // TODO in redis
     jsSpark,
+    manager,
     serializer,
     _;
 
@@ -26,6 +27,7 @@ console.log('Io server listening on 8000');
 
 serializer = di.get('service.serializer');
 jsSpark = di.get('service.jsSpark');
+manager = di.get('service.manager');
 
 // register new clients
 ioServer.on('connection', function (socket) {
