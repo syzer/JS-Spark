@@ -1,7 +1,7 @@
 /**
  * Created by syzer on 4/24/2014.
  */
-module.exports = function () {
+module.exports = function (ROOT_PATH, DATA_PATH) {
     'use strict';
 
     // Avoids DEPTH_ZERO_SELF_SIGNED_CERT error for self-signed certs
@@ -32,7 +32,15 @@ module.exports = function () {
         ssl: {
             key: 'data/ssl/key.pem',
             cert: 'data/ssl/key-cert.pem'
+        },
+        log: {
+            error: {
+                file: (function () {
+                    return DATA_PATH + 'error.log';
+                })()
+            }
         }
-    };
+    }
 };
+
 
