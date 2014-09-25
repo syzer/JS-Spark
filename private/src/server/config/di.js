@@ -25,7 +25,11 @@ var services = {
 
         return app;
     },
-    bodyParser: require('body-parser')(),
+    bodyParser: function addService() {
+        return require('body-parser')().urlencoded({
+            extended: true
+        })
+    },
     cookieParser: require('cookie-parser')(),
     compression: require('compression')(),
     connect: require('connect'),
@@ -53,12 +57,12 @@ var services = {
     log: function addService(di) {
         return require(ROOT_PATH + 'service/logging').createLog();
     },
-    "service.manager": function addService(di) {
+    'service.manager': function addService(di) {
       return require(ROOT_PATH + 'service/manager')(
           // di.get('log')
         );
     },
-    "service.dispatcher": function addService(di) {
+    'service.dispatcher': function addService(di) {
       return require(ROOT_PATH + 'service/dispatcher')(
           // di.get('log')
         );
@@ -72,7 +76,7 @@ var services = {
     },
     session: function addService(di) {
         return require('express-session')(
-            { secret: "shhhhhhhhh!"}
+            { secret: 'shhhhhhhhh!'}
         );
     },
     static_: function addService(di) {
@@ -85,15 +89,8 @@ var services = {
     },
     util: require('util'),
     when: require('when'),
-<<<<<<< Updated upstream
-    "controller.index": function addService(di) {
-        return require(ROOT_PATH + "service/index")(ROOT_PATH);
-    },
-
-=======
-	"controller.index": function addService(di) {
-		return require(ROOT_PATH + "service/index")(ROOT_PATH);
-	},
->>>>>>> Stashed changes
+    'controller.index': function addService(di) {
+        return require(ROOT_PATH + 'service/index')(ROOT_PATH);
+    }
 };
 module.exports.services = services;
