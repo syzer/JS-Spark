@@ -10,7 +10,7 @@ module.exports = function manager(dispatcher) {
 
     // public methods
     function init() {
-      dispatcher.init()
+      dispatcher.start()
     }
 
     function addTask(task) {

@@ -1,15 +1,15 @@
-module.exports = function dispatcher() {
+module.exports = function dispatcher(server) {
 
     //private
     var workers = [];
 
     return {
-        init: init
+        start: start
     }
 
     // public methods
-    function init() {
-      
+    function start() {
+
     }
 
     function addTask() {
