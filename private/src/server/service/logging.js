@@ -6,7 +6,7 @@ module.exports = function logService(config, winston, newrelic) {
     'use strict';
 
     var fileName = config.log.error.file;
-    console.log('fileName', fileName);
+    console.log('error log file name', fileName);
 
     var consoleLogConfig = {
         transports: [
