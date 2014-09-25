@@ -17,13 +17,13 @@ var buildModuleService = function () {
         di.get('compression'),
         di.get('http'),
         di.get('session'),
-		di.get('static_')
+        di.get('static_')
     );
     module.setup();
     module.registerRouteHandler(
         '/',
         di.get('controller.index').defaultRoute,
-		['GET']
+        ['GET']
     );
     module.registerErrors();
     return module;

@@ -4,11 +4,11 @@
  */
 module.exports = function indexService(root) {
     'use strict';
-	return {
-		defaultRoute: function (req, res) {
-			"use strict";
-			res.contentType("text/html");
-			res.sendfile("public/index.html");
-		},
-	};
+    return {
+        defaultRoute: function (req, res) {
+            "use strict";
+            res.contentType("text/html");
+            res.sendfile("public/index.html");
+        },
+    };
 };

@@ -14,9 +14,9 @@ module.exports = function expressService(app, port, cookieParser, compression, h
             return expressApp;
         },
 
-		getServer: function () {
-			return server;
-		},
+        getServer: function () {
+            return server;
+        },
 
         registerRouteHandler: function (route, handler, methodArr) {
             var methods = methodArr || ['GET'];
@@ -44,7 +44,7 @@ module.exports = function expressService(app, port, cookieParser, compression, h
             app.use(cookieParser);
             app.use(compression);
             app.use(session);
-			app.use('/static', static_);
+            app.use('/static', static_);
 
             server = http
                 .createServer(app)
