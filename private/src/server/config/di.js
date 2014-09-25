@@ -42,6 +42,9 @@ var services = {
         }
         return config;
     },
+    'controller.index': function addService(di) {
+        return require(ROOT_PATH + 'service/index')(ROOT_PATH);
+    },
     port: (process.env.PORT || 8081),
     exec: require('child_process').exec,
     express: require('express'),
@@ -58,13 +61,13 @@ var services = {
         return require(ROOT_PATH + 'service/logging').createLog();
     },
     'service.manager': function addService(di) {
-      return require(ROOT_PATH + 'service/manager')(
-          // di.get('log')
+        return require(ROOT_PATH + 'service/manager')(
+            // di.get('log')
         );
     },
     'service.dispatcher': function addService(di) {
-      return require(ROOT_PATH + 'service/dispatcher')(
-          // di.get('log')
+        return require(ROOT_PATH + 'service/dispatcher')(
+            // di.get('log')
         );
     },
     // Lets you use HTTP verbs such as PUT or DELETE in places you normally can't.
@@ -88,9 +91,6 @@ var services = {
         return di.get("express")["static"](statRoot);
     },
     util: require('util'),
-    when: require('when'),
-    'controller.index': function addService(di) {
-        return require(ROOT_PATH + 'service/index')(ROOT_PATH);
-    }
+    when: require('when')
 };
 module.exports.services = services;
