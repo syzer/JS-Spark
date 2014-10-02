@@ -30,7 +30,7 @@ jsSpark = di.get('service.jsSpark');
 manager = di.get('service.manager');
 manager.init();
 
-var task, serializedTask;
+var task;
 
 task = jsSpark(_.range(10))
     .map(function multiplyBy2(el) {
