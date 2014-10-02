@@ -48,7 +48,8 @@ var services = {
     },
     'service.dispatcher': function addService(di) {
         return require(ROOT_PATH + 'service/dispatcher')(
-            di.get('io.server')
+            di.get('io.server'),
+            di.get('service.serializer')
         );
     },
     port: (process.env.PORT || 8081),

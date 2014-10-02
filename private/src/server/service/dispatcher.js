@@ -1,38 +1,54 @@
-module.exports = function dispatcher(ioServer) {
+module.exports = function dispatcher(ioServer, serializer) {
 
     //private
     var workers = [];
+    var tasks = [];
 
     return {
-        start: start
+        start: start,
+        addTask: addTask
     }
 
     // public methods
     function start() {
         var handleMessage = function(socket) {
             console.info('New client of dispatcher ', socket.id);
-            // clients.push(socket);
+            workers.push(socket);
 
             // drop old clients
             socket.on('disconnect', function () {
-                // var index = clients.indexOf(socket);
-                // if (index != -1) {
-                //     console.info('RIP client', socket.id);
-                //     clients.splice(index, 1);
-                // }
+                var index = workers.indexOf(socket);
+                if (index != -1) {
+                    console.info('RIP client', socket.id);
+                    workers.splice(index, 1);
+                }
             });
 
             // process client response
             socket.on('response', function (data) {
-                // console.log('Client response ', socket.id);
-                // console.log(data.split(','));
+                console.log('Client response ', socket.id);
+                console.log(data.split(','));
             });
         };
         ioServer.on('connection', handleMessage)
+
+        // spam clients with meaning-full task, like good PM
+
     }
 
-    function addTask() {
+    function addTask(task) {
+        // #TODO well, writer the correct dispatcher.
+        tasks.push(task)
+        serializedTask = serializer.stringify(task);
 
+        setInterval(function () {
+            var randomClient;
+
+            if (workers.length > 0) {
+                randomClient = Math.floor(Math.random() * workers.length);
+                workers[randomClient].emit('task', serializedTask);
+            }
+        }, 5000);
     }
 
 

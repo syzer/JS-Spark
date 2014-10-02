@@ -1,7 +1,7 @@
 module.exports = function manager(dispatcher) {
 
     //private
-    var task = [];
+    var tasks = [];
     return {
         init: init,
         addTask: addTask
@@ -13,7 +13,7 @@ module.exports = function manager(dispatcher) {
     }
 
     function addTask(task) {
-
+      dispatcher.addTask(task)
       tasks.push(task)
     }
 

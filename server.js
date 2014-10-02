@@ -47,15 +47,7 @@ task = jsSpark(_.range(10))
 //        return num;
 //    })
     .createTask();
+
+// #TODO we are not going to call that directly, it will be called by createTask of jsSpark.
+manager.addTask(task);
 //console.log(task);
-
-serializedTask = serializer.stringify(task);
-// spam clients with meaning-full task, like good PM
-setInterval(function () {
-    var randomClient;
-
-    if (clients.length > 0) {
-        randomClient = Math.floor(Math.random() * clients.length);
-        clients[randomClient].emit('task', serializedTask);
-    }
-}, 5000);
