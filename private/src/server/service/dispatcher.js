@@ -35,11 +35,10 @@ module.exports = function dispatcher(log, ioServer, serializer, _) {
 
             socket.on('clientError', function (data) {
                 log.info('client ', socket.id, ', task ', data.id, ', reports error:', data.resp);
-                //TODO check here validity
+                //TODO check here validity taskmanger should decide if we should reject or fullfill
                 promises[socket.id].reject(data.resp);
             });
 
-            // TODO full fill q
             // process client response
             socket.on('response', function (data) {
                 log.info('Client response ', socket.id);
@@ -51,7 +50,6 @@ module.exports = function dispatcher(log, ioServer, serializer, _) {
 
         };
         ioServer.on('connection', handleMessage);
-
     }
 
     // maybe better hashing algorithm than
@@ -70,7 +68,7 @@ module.exports = function dispatcher(log, ioServer, serializer, _) {
         }
     }
 
-    // #TODO well, writer the correct dispatcher.
+    // TODO move setInverval to process next tick and to separate startDigest cycle function
     // TODO check tasks, check resolved promises
     // setInterval -> event loop
     // spams clients with meaning-full task, like good PM
@@ -80,15 +78,23 @@ module.exports = function dispatcher(log, ioServer, serializer, _) {
         setInterval(function () {
             var randomClient, workerId;
 
-            if (!_.isEmpty(workers)) {
+            if (areFreeWorkersAndPendingTasks()) {
                 randomClient = Math.floor(Math.random() * workers.length);
                 workerId = workers[randomClient].id;
+                promises[workerId] = deferred;
                 workers[randomClient].emit(
                     'task', newTask(task, workerId)
                 );
-                promises[workerId] = deferred;
             }
         }, 10000);
     }
+
+    function areFreeWorkersAndPendingTasks() {
+        return !_.isEmpty(workers); // && !_.isEmpty(promises);
+    }
+
+
+    //TODO function pendigTask()
+
 
 };
