@@ -42,7 +42,3 @@ task = jsSpark(_.range(10))
 //        return num;
 //    })
     .createTask();
-
-// #TODO we are not going to call that directly, it will be called by createTask of jsSpark.
-taskManager.addTask(task);
-//console.log(task);

@@ -1,6 +1,8 @@
-module.exports = function jsSParkService() {
+module.exports = function jsSParkService(taskManager) {
 
-    return function (data) {
+    // TODO proxy to monad, so we could add all lodash/underscore methods
+    // is a monad
+    return function jsSpark (data) {
 
         var operations = [],
             array = data;
@@ -43,9 +45,10 @@ module.exports = function jsSParkService() {
             createTask: createTask
         };
 
+        // TODO return promise
         // factory method
         function createTask() {
-            return {
+            var task = {
 
                 operations: operations,
 
@@ -61,7 +64,11 @@ module.exports = function jsSParkService() {
                 },
 
                 data: array
-            }
+            };
+
+            taskManager.addTask(task);
+
+            return task;
         }
     }
 };
