@@ -51,7 +51,4 @@ module.exports = function dispatcher(ioServer, serializer) {
         }, 10000);
     }
 
-
-
-    // private methods
 };
