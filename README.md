@@ -1,7 +1,10 @@
 What is JS-Spark
 ====
 Distributed real time analytics using JavaScript.
-JavaScript re imagine of fabulous Apache Spark project.
+JavaScript re imagine of fabulous Apache Spark and Storm projects.
+
+If you know `underscore.js` or `lodash.js` you may think of JS_Spark
+as distributed version of them.
 
 Why
 ===
