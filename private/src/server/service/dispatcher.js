@@ -4,6 +4,7 @@ module.exports = function dispatcher(log, ioServer, serializer, _) {
     var workers = [];
 
     // TODO: task clients send, recieved form clients,
+    //TODO maybe tasks here are not required?
     var tasks = [];
 
     // maybe merge with tasks
@@ -34,9 +35,8 @@ module.exports = function dispatcher(log, ioServer, serializer, _) {
 
             socket.on('clientError', function (data) {
                 log.info('client ', socket.id, ', task ', data.id, ', reports error:', data.resp);
-                //TODO find correct promise
                 //TODO check here validity
-                promises[0].reject(data.resp);
+                promises[socket.id].reject(data.resp);
             });
 
             // TODO full fill q
@@ -46,8 +46,7 @@ module.exports = function dispatcher(log, ioServer, serializer, _) {
                 log.info('task id', data.id);
                 log.info('data', data.resp);
                 //TODO check here validity
-                //TODO find correct promise
-                promises[0].fulfill(data.resp);
+                promises[socket.id].fulfill(data.resp);
             });
 
         };
@@ -77,16 +76,17 @@ module.exports = function dispatcher(log, ioServer, serializer, _) {
     // spams clients with meaning-full task, like good PM
     function addTask(task, deferred) {
         tasks.push(newTask(task));
-        promises.push(deferred);
 
         setInterval(function () {
-            var randomClient;
+            var randomClient, workerId;
 
-            if (workers.length > 0) {
+            if (!_.isEmpty(workers)) {
                 randomClient = Math.floor(Math.random() * workers.length);
+                workerId = workers[randomClient].id;
                 workers[randomClient].emit(
-                    'task', newTask(task, workers[randomClient].id)
+                    'task', newTask(task, workerId)
                 );
+                promises[workerId] = deferred;
             }
         }, 10000);
     }
