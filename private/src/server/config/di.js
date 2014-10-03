@@ -46,23 +46,21 @@ var services = {
     'controller.index': function addService(di) {
         return require(ROOT_PATH + 'service/index')(ROOT_PATH);
     },
-    'service.dispatcher': function addService(di) {
-        return require(ROOT_PATH + 'service/dispatcher')(
-            di.get('io.server'),
-            di.get('service.serializer')
-        );
-    },
-    port: (process.env.PORT || 8081),
+    port: (process.env.PORT || 8000),
     exec: require('child_process').exec,
     express: require('express'),
     events: require('events'),
     http: require('http'),
     io: require('socket.io'),
     'io.server': function addService(di) {
-        return di.get('io').listen(8000);
+        var ioPort = di.get('port');
+        console.log('Io server listening on ' + ioPort);
+        return di.get('io').listen(ioPort);
     },
     'service.jsSpark': function addService(di) {
-        return require(ROOT_PATH + 'service/jsSpark')();
+        return require(ROOT_PATH + 'service/jsSpark')(
+            di.get('service.taskManager')
+        );
     },
     log: function addService(di) {
         return require(ROOT_PATH + 'service/logging')(
@@ -70,11 +68,19 @@ var services = {
             di.get('winston')
         ).createLog();
     },
-    'service.manager': function addService(di) {
-        return require(ROOT_PATH + 'service/manager')(
+    'service.dispatcher': function addService(di) {
+        return require(ROOT_PATH + 'service/dispatcher')(
+            di.get('io.server'),
+            di.get('service.serializer')
+        );
+    },
+    'service.taskManager': function addService(di) {
+        var taskManager = require(ROOT_PATH + 'service/taskManager')(
             di.get('service.dispatcher'),
             di.get('log')
         );
+        taskManager.init();
+        return taskManager;
     },
     // Lets you use HTTP verbs such as PUT or DELETE in places you normally can't.
     methodOverride: require('method-override')(),
@@ -98,6 +104,6 @@ var services = {
     },
     util: require('util'),
     winston: require('winston'),
-    when: require('when')
+    when: require('when')   // TODO do performance test vs bluebird
 };
 module.exports.services = services;

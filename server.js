@@ -4,10 +4,8 @@
  */
 var io,
     ioServer,
-    clients = [],           // TODO in redis
     jsSpark,
-    manager,
-    serializer,
+    taskManager,
     _;
 
 
@@ -23,12 +21,9 @@ _ = di.get('_');
 
 io = di.get('io');
 ioServer = di.get('io.server');
-console.log('Io server listening on 8000');
 
-serializer = di.get('service.serializer');
 jsSpark = di.get('service.jsSpark');
-manager = di.get('service.manager');
-manager.init();
+taskManager = di.get('service.taskManager');
 
 var task;
 
@@ -49,5 +44,5 @@ task = jsSpark(_.range(10))
     .createTask();
 
 // #TODO we are not going to call that directly, it will be called by createTask of jsSpark.
-manager.addTask(task);
+taskManager.addTask(task);
 //console.log(task);

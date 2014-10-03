@@ -2,12 +2,13 @@ module.exports = function dispatcher(ioServer, serializer) {
 
     //private
     var workers = [];
+    // TODO: task clients send, recieved form clients,
     var tasks = [];
 
     return {
         start: start,
         addTask: addTask
-    }
+    };
 
     // public methods
     function start() {
@@ -30,16 +31,15 @@ module.exports = function dispatcher(ioServer, serializer) {
                 console.log(data.split(','));
             });
         };
-        ioServer.on('connection', handleMessage)
+        ioServer.on('connection', handleMessage);
 
         // spam clients with meaning-full task, like good PM
-
     }
 
     function addTask(task) {
         // #TODO well, writer the correct dispatcher.
-        tasks.push(task)
-        serializedTask = serializer.stringify(task);
+        tasks.push(task);
+        var serializedTask = serializer.stringify(task);
 
         setInterval(function () {
             var randomClient;
@@ -48,7 +48,7 @@ module.exports = function dispatcher(ioServer, serializer) {
                 randomClient = Math.floor(Math.random() * workers.length);
                 workers[randomClient].emit('task', serializedTask);
             }
-        }, 5000);
+        }, 10000);
     }
 
 
