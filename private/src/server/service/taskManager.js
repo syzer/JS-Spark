@@ -11,12 +11,12 @@ module.exports = function taskManager(dispatcher) {
 
     // public methods
     function init() {
-      dispatcher.start()
+        dispatcher.start()
     }
 
     function addTask(task) {
-      dispatcher.addTask(task);
-      tasks.push(task)
+        dispatcher.addTask(task);
+        tasks.push(task)
     }
 
 };

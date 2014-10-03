@@ -70,8 +70,10 @@ var services = {
     },
     'service.dispatcher': function addService(di) {
         return require(ROOT_PATH + 'service/dispatcher')(
+            di.get('log'),
             di.get('io.server'),
-            di.get('service.serializer')
+            di.get('service.serializer'),
+            di.get('_')
         );
     },
     'service.taskManager': function addService(di) {

@@ -5,19 +5,22 @@ var io = require('socket.io-client'),
     ioClient = io.connect('http://localhost:8000'),
     _ = require('lodash');
 
-ioClient.on('task', function (serializedTask) {
-    //console.log(serializedTask);
+ioClient.on('task', function (recievedTask) {
+    console.log();
     var task,
         response;
     try {
-        task = JSON.parse(serializedTask, functionCreate);
+        task = JSON.parse(recievedTask.task, functionCreate);
         response = task.execute(_, task.data, task.callbacks).value();
-
+        ioClient.emit('response',
+            {id: recievedTask.id, resp: response.toString()}
+        );
+        console.log('Client response', response);
     } catch (e) {
-        console.log("Parse error:", e.toString());
+        ioClient.emit('clientError', {id: recievedTask.id, resp: e.toString()});
+        console.log('Parse error:', e.toString());
     }
-    ioClient.emit('response', response.toString());
-    console.log('Client response', response);
+
 });
 
 // CSP may block Function call, function used not to use eval
