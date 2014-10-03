@@ -46,7 +46,6 @@ var services = {
     'controller.index': function addService(di) {
         return require(ROOT_PATH + 'service/index')(ROOT_PATH);
     },
-    port: (process.env.PORT || 8000),
     exec: require('child_process').exec,
     express: require('express'),
     events: require('events'),
@@ -57,9 +56,12 @@ var services = {
         console.log('Io server listening on ' + ioPort);
         return di.get('io').listen(ioPort);
     },
+    port: (process.env.PORT || 8000),
+    promise: require('bluebird'),
     'service.jsSpark': function addService(di) {
         return require(ROOT_PATH + 'service/jsSpark')(
-            di.get('service.taskManager')
+            di.get('service.taskManager'),
+            di.get('promise')
         );
     },
     log: function addService(di) {
@@ -105,7 +107,6 @@ var services = {
         return di.get("express")["static"](statRoot);
     },
     util: require('util'),
-    winston: require('winston'),
-    when: require('when')   // TODO do performance test vs bluebird
+    winston: require('winston')
 };
 module.exports.services = services;

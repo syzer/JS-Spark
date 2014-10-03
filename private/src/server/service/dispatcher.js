@@ -6,6 +6,9 @@ module.exports = function dispatcher(log, ioServer, serializer, _) {
     // TODO: task clients send, recieved form clients,
     var tasks = [];
 
+    // maybe merge with tasks
+    var promises = [];
+
     // probably not good idea
     var memoizedStringify = _.memoize(serializer.stringify);
 
@@ -30,7 +33,10 @@ module.exports = function dispatcher(log, ioServer, serializer, _) {
             });
 
             socket.on('clientError', function (data) {
-                log.info('client ', socket.id, ', task ', data.id, ', reports error:', data.resp)
+                log.info('client ', socket.id, ', task ', data.id, ', reports error:', data.resp);
+                //TODO find correct promise
+                //TODO check here validity
+                promises[0].reject(data.resp);
             });
 
             // TODO full fill q
@@ -38,10 +44,11 @@ module.exports = function dispatcher(log, ioServer, serializer, _) {
             socket.on('response', function (data) {
                 log.info('Client response ', socket.id);
                 log.info('task id', data.id);
-                log.info('data', data.resp.split(','));
+                log.info('data', data.resp);
+                //TODO check here validity
+                //TODO find correct promise
+                promises[0].fulfill(data.resp);
             });
-
-
 
         };
         ioServer.on('connection', handleMessage);
@@ -65,10 +72,12 @@ module.exports = function dispatcher(log, ioServer, serializer, _) {
     }
 
     // #TODO well, writer the correct dispatcher.
+    // TODO check tasks, check resolved promises
     // setInterval -> event loop
     // spams clients with meaning-full task, like good PM
-    function addTask(task) {
+    function addTask(task, deferred) {
         tasks.push(newTask(task));
+        promises.push(deferred);
 
         setInterval(function () {
             var randomClient;

@@ -25,7 +25,7 @@ ioServer = di.get('io.server');
 jsSpark = di.get('service.jsSpark');
 taskManager = di.get('service.taskManager');
 
-var task;
+var task, task2;
 
 task = jsSpark(_.range(10))
     .map(function multiplyBy2(el) {
@@ -42,3 +42,9 @@ task = jsSpark(_.range(10))
 //        return num;
 //    })
     .createTask();
+
+// All your 101 base are belong to us
+task.then(function (data) {
+    var basesNumber = data.split(',').map(Number)[0] + 21;
+    console.log('All your ' + basesNumber + ' base are belong to us');
+});

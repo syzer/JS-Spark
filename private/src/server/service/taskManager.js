@@ -1,4 +1,9 @@
-module.exports = function taskManager(dispatcher) {
+/**
+ * TODO task default strategy
+ * TODO task give task statistics
+ * TODO give clients statistics
+ */
+module.exports = function taskManager(dispatcher, config) {
 
     // private
     // TODO task is duplicated in dispacher
@@ -14,8 +19,8 @@ module.exports = function taskManager(dispatcher) {
         dispatcher.start()
     }
 
-    function addTask(task) {
-        dispatcher.addTask(task);
+    function addTask(task, deferred) {
+        dispatcher.addTask(task, deferred);
         tasks.push(task)
     }
 

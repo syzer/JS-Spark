@@ -1,4 +1,4 @@
-module.exports = function jsSParkService(taskManager) {
+module.exports = function jsSParkService(taskManager, Promise) {
 
     // TODO proxy to monad, so we could add all lodash/underscore methods
     // is a monad
@@ -48,6 +48,7 @@ module.exports = function jsSParkService(taskManager) {
         // TODO return promise
         // factory method
         function createTask() {
+            var deferred = Promise.pending();
             var task = {
 
                 operations: operations,
@@ -66,9 +67,9 @@ module.exports = function jsSParkService(taskManager) {
                 data: array
             };
 
-            taskManager.addTask(task);
+            taskManager.addTask(task, deferred);
 
-            return task;
+            return deferred.promise;
         }
     }
 };
