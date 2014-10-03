@@ -2,10 +2,7 @@
  * Created by syzer on 7/24/2014.
  * Its just a Proof of Concept
  */
-var io,
-    ioServer,
-    jsSpark,
-    taskManager,
+var jsSpark,
     _;
 
 
@@ -19,11 +16,7 @@ var di = require(ROOT + 'controller/di')(services);
 // lodash
 _ = di.get('_');
 
-io = di.get('io');
-ioServer = di.get('io.server');
-
 jsSpark = di.get('service.jsSpark');
-taskManager = di.get('service.taskManager');
 
 var task, task2;
 
