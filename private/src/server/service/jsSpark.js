@@ -1,6 +1,5 @@
-module.exports = function jsSParkService(taskManager, Promise) {
+module.exports = function jsSParkService(taskManager, Promise, _) {
 
-    // TODO proxy to monad, so we could add all lodash/underscore methods
     // is a monad
     return function jsSpark (data) {
 
@@ -8,6 +7,20 @@ module.exports = function jsSParkService(taskManager, Promise) {
             array = data;
 
         return {
+
+            // TODO move dynamic method dispatch to apply/call
+            // array generics are still not available in node
+            // add lodash function
+            add: function (/*args*/) {
+                operations.push({
+                    chaining: function (chain, functions, _) {
+                        return chain[functions[0]](functions[1]);
+                    },
+                    callback: Array.prototype.slice.call(arguments)
+                });
+
+                return this;
+            },
 
             map: function (callback) {
                 operations.push({
@@ -45,7 +58,7 @@ module.exports = function jsSParkService(taskManager, Promise) {
             createTask: createTask
         };
 
-        // TODO return promise
+        // TODO move forEach to reduce?
         // factory method
         function createTask() {
             var deferred = Promise.pending();
@@ -53,12 +66,10 @@ module.exports = function jsSParkService(taskManager, Promise) {
 
                 operations: operations,
 
-                execute: function (_, data, callbacks) {
+                execute: function (_, data) {
                     var chain = _.chain(data);
-                    // TODO move to reduce?
                     this.operations.forEach(function (operation, i) {
-
-                        chain = operation.chaining(chain, operation.callback);
+                        chain = operation.chaining(chain, operation.callback, _);
                     });
 
                     return chain;

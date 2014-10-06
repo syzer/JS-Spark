@@ -5,20 +5,20 @@ var io = require('socket.io-client'),
     ioClient = io.connect('http://localhost:8000'),
     _ = require('lodash');
 
-ioClient.on('task', function (recievedTask) {
-    console.log();
+//TODO split task and parse serialization errors
+ioClient.on('task', function (receivedTask) {
     var task,
         response;
     try {
-        task = JSON.parse(recievedTask.task, functionCreate);
-        response = task.execute(_, task.data, task.callbacks).value();
+        task = JSON.parse(receivedTask.task, functionCreate);
+        response = task.execute(_, task.data/*, task.callbacks*/).value();
         ioClient.emit('response',
-            {id: recievedTask.id, resp: response.toString()}
+            {id: receivedTask.id, resp: response.toString()}
         );
         console.log('Client response', response);
     } catch (e) {
-        ioClient.emit('clientError', {id: recievedTask.id, resp: e.toString()});
-        console.log('Parse error:', e.toString());
+        ioClient.emit('clientError', {id: receivedTask.id, resp: e.toString()});
+        console.log('Parse error:', e.stack);
     }
 
 });

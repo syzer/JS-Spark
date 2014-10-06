@@ -21,6 +21,9 @@ jsSpark = di.get('service.jsSpark');
 var task, task2;
 
 task = jsSpark(_.range(10))
+    .add('sortBy', function _sortBy(el) {
+        return Math.sin(el);
+    })
     .map(function multiplyBy2(el) {
         return el * 2;
     })
@@ -31,13 +34,14 @@ task = jsSpark(_.range(10))
     .reduce(function sumUp(arr, el) {
         return arr + el;
     })
-//    .sortBy(function(num){
-//        return num;
-//    })
     .createTask();
 
-// All your 101 base are belong to us
-task.then(function (data) {
-    var basesNumber = data.split(',').map(Number)[0] + 21;
-    console.log('All your ' + basesNumber + ' base are belong to us');
-});
+task
+    .then(function (data) {
+        var basesNumber = data.split(',').map(Number)[0] + 21;
+        // All your 101 base are belong to us
+        console.log('All your ' + basesNumber + ' base are belong to us');
+    })
+    .catch(function (reason) {
+        console.log('Task could not compute ' + reason.toString());
+    });
