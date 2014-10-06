@@ -6,6 +6,9 @@ JavaScript re imagine of fabulous Apache Spark and Storm projects.
 If you know `underscore.js` or [`lodash.js`](https://lodash.com/) you may think of JS-Spark
 as distributed version of them.
 
+If you know Distributed-RPC systems like [storm](https://storm.incubator.apache.org/documentation/Distributed-RPC.html)
+you will feel like home.
+
 Why
 ===
 Hadoop is quite slow and requires maintaining cluster - we want to do better. Imagine that theres no need to setup expansive cluster/clud solutions. Use webrowsers! Easily scale to multiple clients. Clients do not need to install anything like Java or other plugins.
