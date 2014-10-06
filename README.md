@@ -3,7 +3,7 @@ What is JS-Spark
 Distributed real time analytics using JavaScript.
 JavaScript re imagine of fabulous Apache Spark and Storm projects.
 
-If you know `underscore.js` or `lodash.js` you may think of JS-Spark
+If you know `underscore.js` or [`lodash.js`](https://lodash.com/) you may think of JS-Spark
 as distributed version of them.
 
 Why
@@ -32,8 +32,8 @@ But using JSpark you can totally reverse this trend. Build websites that run FAS
 * Free to use.
 
 
-How
-====
+How(Getting started)
+====================
 Prerequisites, install any! server (ex: Node.js), then:
 
     run `npm install`
@@ -54,8 +54,8 @@ For the Web Application:
 wait for clients to do all heavy lifting
 
 
-Get Started
-===========
+More references
+===============
 This project is about to reimplemented some nice things from the world of big data, so there are of course some nice
 resources you can use to dive into the topic:
 
