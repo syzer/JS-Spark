@@ -44,15 +44,10 @@ Prerequisites, install any! server (ex: Node.js), then:
 
 Proof Of Concept(POC):
 
-        nodemon server.js
-        nodemon client.js
+        node server.js
+        node client.js
         
 Start on your machine and see how the clients do all calculation.
-
-For the Web Application:
-
-    run `node serverExpress.js`
-
 
 wait for clients to do all heavy lifting
 

@@ -59,6 +59,7 @@ module.exports = function jsSParkService(taskManager, defer, _) {
         };
 
         // TODO move forEach to reduce?
+        // TODO args = options{timeout,...}
         // factory method
         function createTask() {
             var deferred = defer();
