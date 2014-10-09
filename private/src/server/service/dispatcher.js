@@ -1,5 +1,8 @@
 module.exports = function dispatcher(log, ioServer, serializer, _) {
 
+    // 10 seconds
+    const DISPATCH_INTERVAL = 10000;
+
     // AKA clients
     var workers = [];
 
@@ -10,21 +13,22 @@ module.exports = function dispatcher(log, ioServer, serializer, _) {
     // maybe merge with tasks
     var promises = [];
 
-    // probably not good idea
-    var memoizedStringify = _.memoize(serializer.stringify);
+    // timer for digest cycle
+    var timerId;
 
     return {
         start: start,
-        addTask: addTask
+        addTask: addTask,
+        stop: stop
     };
 
-    // public methods
     function start() {
         var handleMessage = function (socket) {
             log.info('New client of dispatcher ', socket.id);
             workers.push(socket);
 
             // drop old clients
+            // TODO reject worker tasks after some timeout(he yet may reconnect)
             socket.on('disconnect', function () {
                 var index = workers.indexOf(socket);
                 if (index != -1) {
@@ -35,7 +39,8 @@ module.exports = function dispatcher(log, ioServer, serializer, _) {
 
             socket.on('clientError', function (data) {
                 log.info('client ', socket.id, ', task ', data.id, ', reports error:', data.resp);
-                //TODO check here validity taskmanger should decide if we should reject or fullfill
+                // TODO check here validity
+                // TODO task manger should decide if we should reject or resolve
                 promises[socket.id].reject(data.resp);
             });
 
@@ -45,11 +50,37 @@ module.exports = function dispatcher(log, ioServer, serializer, _) {
                 log.info('task id', data.id);
                 log.info('data', data.resp);
                 //TODO check here validity
-                promises[socket.id].fulfill(data.resp);
+                promises[socket.id].resolve(data.resp);
             });
 
         };
         ioServer.on('connection', handleMessage);
+        timerId = periodicallyDispatchStrategy()
+    }
+
+    function stop() {
+        log.info('dispatching stopped @', new Date());
+        clearInterval(timerId);
+    }
+
+    // TODO move setInterval to process next tick and to separate startDigest cycle function
+    // TODO check tasks, check resolved promises
+    // TODO tasks.pop() is NOT the best implementation maybe task->state pending?
+    // spams clients with meaning-full task, like good PM
+    function periodicallyDispatchStrategy() {
+        return setInterval(function () {
+            var randomClient, workerId, task;
+            if (noFreeWorkersOrPendingTasks()) {
+                return;
+            }
+            task = tasks.pop();
+            randomClient = Math.floor(Math.random() * workers.length);
+            workerId = workers[randomClient].id;
+            promises[workerId] = task.deferred;
+            workers[randomClient].emit(
+                'task', {id: newUniqueTaskId(workerId), task: task.task}
+            );
+        }, DISPATCH_INTERVAL);
     }
 
     // maybe better hashing algorithm than
@@ -58,43 +89,25 @@ module.exports = function dispatcher(log, ioServer, serializer, _) {
         return _.uniqueId(prefix);
     }
 
+    // TODO refactor out to task manager
+    // maybe memorize stringify() with _.memoize(serializer.stringify)
     // task schema
-    function newTask(task, clientId) {
+    function newTask(task, clientId, deferred) {
         clientId = clientId || '';
 
         return {
             id: newUniqueTaskId(clientId),
-            task: memoizedStringify(task)
+            task: serializer.stringify(task),
+            deferred: deferred
         }
     }
 
-    // TODO move setInverval to process next tick and to separate startDigest cycle function
-    // TODO check tasks, check resolved promises
-    // setInterval -> event loop
-    // spams clients with meaning-full task, like good PM
     function addTask(task, deferred) {
-        tasks.push(newTask(task));
-
-        setInterval(function () {
-            var randomClient, workerId;
-
-            if (areFreeWorkersAndPendingTasks()) {
-                randomClient = Math.floor(Math.random() * workers.length);
-                workerId = workers[randomClient].id;
-                promises[workerId] = deferred;
-                workers[randomClient].emit(
-                    'task', newTask(task, workerId)
-                );
-            }
-        }, 10000);
+        tasks.push(newTask(task, '', deferred));
     }
 
-    function areFreeWorkersAndPendingTasks() {
-        return !_.isEmpty(workers); // && !_.isEmpty(promises);
+    // TODO pending tasks
+    function noFreeWorkersOrPendingTasks() {
+        return _.isEmpty(workers) || _.isEmpty(tasks);
     }
-
-
-    //TODO function pendigTask()
-
-
 };

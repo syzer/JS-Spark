@@ -18,7 +18,7 @@ ioClient.on('task', function (receivedTask) {
         console.log('Client response', response);
     } catch (e) {
         ioClient.emit('clientError', {id: receivedTask.id, resp: e.toString()});
-        console.log('Parse error:', e.stack);
+        console.error('Parse error:', e.stack);
     }
 
 });

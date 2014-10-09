@@ -1,4 +1,4 @@
-module.exports = function jsSParkService(taskManager, Promise, _) {
+module.exports = function jsSParkService(taskManager, defer, _) {
 
     // is a monad
     return function jsSpark (data) {
@@ -61,7 +61,7 @@ module.exports = function jsSParkService(taskManager, Promise, _) {
         // TODO move forEach to reduce?
         // factory method
         function createTask() {
-            var deferred = Promise.pending();
+            var deferred = defer();
             var task = {
 
                 operations: operations,
@@ -80,7 +80,7 @@ module.exports = function jsSParkService(taskManager, Promise, _) {
 
             taskManager.addTask(task, deferred);
 
-            return deferred.promise;
+            return deferred;
         }
     }
 };

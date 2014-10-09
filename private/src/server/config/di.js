@@ -46,6 +46,11 @@ var services = {
     'controller.index': function addService(di) {
         return require(ROOT_PATH + 'service/index')(ROOT_PATH);
     },
+    defer: function addService(di) {
+        return require(ROOT_PATH + 'service/defer')(
+            di.get('promise')
+        );
+    },
     exec: require('child_process').exec,
     express: require('express'),
     events: require('events'),
@@ -61,7 +66,7 @@ var services = {
     'service.jsSpark': function addService(di) {
         return require(ROOT_PATH + 'service/jsSpark')(
             di.get('service.taskManager'),
-            di.get('promise')
+            di.get('defer')
         );
     },
     log: function addService(di) {
