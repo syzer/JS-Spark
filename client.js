@@ -22,9 +22,7 @@ ioClient.on('task', function (receivedTask) {
             return ioClient.emit('syntaxError', {id: receivedTask.id, resp: error.toString()});
         }
         ioClient.emit('clientError', {id: receivedTask.id, resp: error.toString()});
-
     }
-
 });
 
 // CSP may block Function call, function used not to use eval
