@@ -22,6 +22,8 @@ module.exports = function dispatcherService(log, ioServer, serializer, _) {
         stop: stop
     };
 
+    // TODO check here validity of client message
+    // TODO task manger should decide if we should reject or resolve
     function start() {
         var handleMessage = function (socket) {
             log.info('New client of dispatcher ', socket.id);
@@ -37,10 +39,13 @@ module.exports = function dispatcherService(log, ioServer, serializer, _) {
                 }
             });
 
+            socket.on('syntaxError', function (data) {
+                log.error('client ', socket.id, ', task ', data.id, ', reports error:', data.resp);
+                promises[socket.id].reject(data.resp);
+            });
+
             socket.on('clientError', function (data) {
-                log.info('client ', socket.id, ', task ', data.id, ', reports error:', data.resp);
-                // TODO check here validity
-                // TODO task manger should decide if we should reject or resolve
+                log.error('client ', socket.id, ', task ', data.id, ', reports error:', data.resp);
                 promises[socket.id].reject(data.resp);
             });
 
@@ -49,7 +54,6 @@ module.exports = function dispatcherService(log, ioServer, serializer, _) {
                 log.info('Client response ', socket.id);
                 log.info('task id', data.id);
                 log.info('data', data.resp);
-                //TODO check here validity
                 promises[socket.id].resolve(data.resp);
             });
 

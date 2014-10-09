@@ -11,14 +11,18 @@ ioClient.on('task', function (receivedTask) {
         response;
     try {
         task = JSON.parse(receivedTask.task, functionCreate);
-        response = task.execute(_, task.data/*, task.callbacks*/).value();
+        response = task.execute(_, task.data).value();
         ioClient.emit('response',
             {id: receivedTask.id, resp: response.toString()}
         );
         console.log('Client response', response);
-    } catch (e) {
-        ioClient.emit('clientError', {id: receivedTask.id, resp: e.toString()});
-        console.error('Parse error:', e.stack);
+    } catch (error) {
+        console.error('Error:', error.stack);
+        if ('SyntaxError' === error.name) {
+            return ioClient.emit('syntaxError', {id: receivedTask.id, resp: error.toString()});
+        }
+        ioClient.emit('clientError', {id: receivedTask.id, resp: error.toString()});
+
     }
 
 });
