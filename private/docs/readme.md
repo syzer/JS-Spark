@@ -31,7 +31,7 @@ module.exports = function strategyPushClients(arraySerializerService, clientQueS
 
         // some comments
         push: publicFunction
-    }
+    };
 
     // public methods
     function publicFunction(params) {
@@ -42,7 +42,7 @@ module.exports = function strategyPushClients(arraySerializerService, clientQueS
     function privateFunction(params) {
 
     }
-}
+};
 ```
 
 usage
