@@ -37,13 +37,9 @@ But using JSpark you can totally reverse this trend. Build websites that run FAS
 
 How(Getting started)
 ====================
-Prerequisites, install any! server (ex: Node.js), then:
+Prerequisites, install Node.js, then:
 
-    run `npm install`
-
-
-Proof Of Concept(POC):
-
+        npm install
         node server.js
         node client.js
         
