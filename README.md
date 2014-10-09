@@ -51,6 +51,35 @@ Start on your machine and see how the clients do all calculation.
 
 wait for clients to do all heavy lifting
 
+Usage
+=====
+Client side heavy CPU computation
+----------------------------------
+
+```JavaScript
+task = jsSpark([20])
+    .map(function addOne(num) {
+        return num + 1;
+    })
+    .createTask();
+```
+
+Combined usage with server side processing
+------------------------------------------
+
+```JavaScript
+task3 = task
+    .promise
+    .then(function serverSideComputingOfData(data) {
+        var basesNumber = data.split(',').map(Number)[0] + 21;
+        // All your 101 base are belong to us
+        console.log('All your ' + basesNumber + ' base are belong to us');
+        return basesNumber;
+    })
+    .catch(function (reason) {
+        console.log('Task could not compute ' + reason.toString());
+    });
+```
 
 More references
 ===============

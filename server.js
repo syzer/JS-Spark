@@ -5,7 +5,6 @@
 var jsSpark,
     _;
 
-
 var ROOT = './private/src/server/';
 // DI container
 var services = require(ROOT + 'config/di').services;
@@ -55,8 +54,11 @@ task3 = task
         console.log('Task could not compute ' + reason.toString());
     });
 
+
+
 di.get('promise')
     .all([task.promise, task2.promise, task3])
     .then(function (data) {
         console.log('All tasks done', data);
+        di.get('service.dispatcher').stop();
     });

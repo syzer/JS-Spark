@@ -1,4 +1,4 @@
-module.exports = function dispatcher(log, ioServer, serializer, _) {
+module.exports = function dispatcherService(log, ioServer, serializer, _) {
 
     // 10 seconds
     const DISPATCH_INTERVAL = 10000;
@@ -59,7 +59,7 @@ module.exports = function dispatcher(log, ioServer, serializer, _) {
     }
 
     function stop() {
-        log.info('dispatching stopped @', new Date());
+        log.info('dispatching stopped @' + new Date());
         clearInterval(timerId);
     }
 
