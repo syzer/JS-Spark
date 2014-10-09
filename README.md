@@ -54,6 +54,7 @@ Client side heavy CPU computation
 
 ```JavaScript
 task = jsSpark([20])
+    // this is executed on client side
     .map(function addOne(num) {
         return num + 1;
     })
