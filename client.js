@@ -5,7 +5,6 @@ var io = require('socket.io-client'),
     ioClient = io.connect('http://localhost:8000'),
     _ = require('lodash');
 
-//TODO split task and parse serialization errors
 ioClient.on('task', function (receivedTask) {
     var task,
         response;
