@@ -54,8 +54,6 @@ task3 = task
         console.log('Task could not compute ' + reason.toString());
     });
 
-
-
 di.get('promise')
     .all([task.promise, task2.promise, task3])
     .then(function (data) {

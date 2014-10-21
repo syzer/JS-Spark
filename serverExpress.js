@@ -45,8 +45,6 @@ var io = di.get('io'),
     clients = [],           // TODO in redis
     _ = require('lodash');
 
-var ROOT = './private/src/server/';
-
 var serializer = di.get('service.serializer');
 
 // register new clients
