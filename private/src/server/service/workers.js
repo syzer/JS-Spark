@@ -17,17 +17,17 @@ module.exports = function workersService(log) {
             free: false,
             id: socket.id
         };
-        workers.push[worker]
+        //TODO pls fixme
+        workers.push(worker);
+
         return worker;
     }
 
+    //TODO getBest
     function getFree() {
-        for (var i = 0; i < worker.length; i++) {
-            if (workers[i].free) {
-                return worker[i];
-            }
-        }
-        return null;
+        return workers.filter(function(worker){
+            return worker.free;
+        })[0];
     }
 
 };
