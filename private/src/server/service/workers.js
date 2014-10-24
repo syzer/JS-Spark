@@ -17,7 +17,6 @@ module.exports = function workersService(log) {
             free: false,
             id: socket.id
         };
-        //TODO pls fixme
         workers.push(worker);
 
         return worker;
