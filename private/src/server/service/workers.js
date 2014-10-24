@@ -1,8 +1,11 @@
 /**
  * Created by syzer on 7/24/2014.
  */
-module.exports = function workers(log) {
+module.exports = function workersService(log) {
+    'use strict';
+
     var workers = [];
+
     return {
         create: create,
         getFree: getFree,
@@ -13,7 +16,7 @@ module.exports = function workers(log) {
             socket: socket,
             free: false,
             id: socket.id
-        }
+        };
         workers.push[worker]
         return worker;
     }

@@ -113,7 +113,7 @@ module.exports = function (grunt) {
             },
             server: {
                 options: {
-                    jshintrc: 'server/.jshintrc'
+                    jshintrc: 'private/src/server/.jshintrc'
                 },
                 src: [ 'private/src/server/{,*/}*.js']
             },
