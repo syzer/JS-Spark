@@ -3,7 +3,7 @@
 module.exports = function (grunt) {
     var localConfig;
     try {
-        localConfig = require('./server/config/local.env');
+        localConfig = require('./private/src/server/config/local.env');
     } catch (e) {
         localConfig = {};
     }
@@ -36,7 +36,7 @@ module.exports = function (grunt) {
             },
             dev: {
                 options: {
-                    script: 'server/app.js',
+                    script: 'private/server/app.js',
                     debug: true
                 }
             },
@@ -67,7 +67,7 @@ module.exports = function (grunt) {
                 tasks: ['injector:css']
             },
             mochaTest: {
-                files: ['server/**/*.spec.js'],
+                files: ['private/srv/server/test/**/*.spec.js'],
                 tasks: ['env:test', 'mochaTest']
             },
             jsTest: {
@@ -95,7 +95,7 @@ module.exports = function (grunt) {
             },
             express: {
                 files: [
-                    'server/**/*.{js,json}'
+                    'private/src/server/**/*.{js,json}'
                 ],
                 tasks: ['express:dev', 'wait'],
                 options: {
@@ -115,7 +115,7 @@ module.exports = function (grunt) {
                 options: {
                     jshintrc: 'server/.jshintrc'
                 },
-                src: [ 'server/{,*/}*.js']
+                src: [ 'private/src/server/{,*/}*.js']
             },
             all: [
                 '<%= yeoman.client %>/{app,components}/**/*.js',
@@ -178,7 +178,7 @@ module.exports = function (grunt) {
         // Use nodemon to run server in debug mode with an initial breakpoint
         nodemon: {
             debug: {
-                script: 'server/app.js',
+                script: 'private/src/server/app.js',
                 options: {
                     nodeArgs: ['--debug-brk'],
                     env: {
@@ -404,7 +404,7 @@ module.exports = function (grunt) {
             options: {
                 reporter: 'spec'
             },
-            src: ['server/**/*.spec.js']
+            src: ['private/src/server/**/*.spec.js']
         },
 
         protractor: {
@@ -438,7 +438,7 @@ module.exports = function (grunt) {
             scripts: {
                 options: {
                     transform: function (filePath) {
-                        filePath = filePath.replace('/client/', '');
+                        filePath = filePath.replace('/private/src/client/', '');
                         filePath = filePath.replace('/.tmp/', '');
                         return '<script src="' + filePath + '"></script>';
                     },
@@ -459,7 +459,7 @@ module.exports = function (grunt) {
             css: {
                 options: {
                     transform: function (filePath) {
-                        filePath = filePath.replace('/client/', '');
+                        filePath = filePath.replace('/private/src/client/', '');
                         filePath = filePath.replace('/.tmp/', '');
                         return '<link rel="stylesheet" href="' + filePath + '">';
                     },
