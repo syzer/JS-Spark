@@ -78,7 +78,6 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
                     task: task.task
                 }
             );
-
         }
     }
 
