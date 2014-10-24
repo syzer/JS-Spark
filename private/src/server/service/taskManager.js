@@ -16,12 +16,12 @@ module.exports = function taskManager(dispatcher, config) {
 
     // public methods
     function init() {
-        dispatcher.start()
+        dispatcher.start();
     }
 
     function addTask(task, deferred) {
         dispatcher.addTask(task, deferred);
-        tasks.push(task)
+        tasks.push(task);
     }
 
 };
