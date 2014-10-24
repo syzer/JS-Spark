@@ -14,8 +14,8 @@ var services = {
         app.use(di.get('bodyParser'));
         app.use(di.get('methodOverride'));
 
-        var allowCrossDomain = function (req, res, next) {
-            res.setHeader('Access-Control-Allow-Origin', '*');  //http://example.com ////config.allowedDomains
+        var allowCrossDomain = function(req, res, next) {
+            res.setHeader('Access-Control-Allow-Origin', '*'); //http://example.com ////config.allowedDomains
             res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
             res.header('Access-Control-Allow-Headers', 'x-xsrf-token, X-Requested-With, X-HTTP-Method-Override, Authorization, Origin, Content-Type, Accept');
             res.header('Access-Control-Allow-Credentials', 'true'); //for basic auth
@@ -80,7 +80,8 @@ var services = {
             di.get('log'),
             di.get('io.server'),
             di.get('service.serializer'),
-            di.get('_')
+            di.get('_'),
+            di.get('service.workers')
         );
     },
     'service.taskManager': function addService(di) {
@@ -91,6 +92,12 @@ var services = {
         taskManager.init();
         return taskManager;
     },
+    'service.workers': function addService(di) {
+        var workers = require(ROOT_PATH + 'service/workers')(
+            di.get('log')
+        );
+        return workers;
+    },
     // Lets you use HTTP verbs such as PUT or DELETE in places you normally can't.
     methodOverride: require('method-override')(),
     'service.serializer': function addService(di) {
@@ -99,9 +106,9 @@ var services = {
         );
     },
     session: function addService(di) {
-        return require('express-session')(
-            { secret: 'shhhhhhhhh!'}
-        );
+        return require('express-session')({
+            secret: 'shhhhhhhhh!'
+        });
     },
     static_: function addService(di) {
         // XXX This is a truly evil way to construct paths
