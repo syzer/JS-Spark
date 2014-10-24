@@ -1,10 +1,5 @@
 module.exports = function dispatcherService(log, ioServer, serializer, _, workers) {
 
-    // 10 seconds
-    const DISPATCH_INTERVAL = 10000;
-
-    // AKA clients
-
     // TODO: task clients send, recieved form clients,
     //TODO maybe tasks here are not required?
     var tasks = [];
@@ -55,10 +50,8 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
                 worker.free = true;
                 askForTask(worker);
             });
-
         };
         ioServer.on('connection', handleMessage);
-        // timerId = periodicallyDispatchStrategy()
     }
 
     function stop() {
