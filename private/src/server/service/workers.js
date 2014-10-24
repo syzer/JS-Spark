@@ -11,7 +11,8 @@ module.exports = function workers(log) {
     function create(socket) {
         var worker = {
             socket: socket,
-            free: false
+            free: false,
+            id: socket.id
         }
         workers.push[worker]
         return worker;
