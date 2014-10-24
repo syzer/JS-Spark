@@ -24,7 +24,7 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
 
             // Try to give him a task.
             var worker = workers.create(socket);
-            askForTask(worker);
+            emitFreeTask(worker);
             // drop old clients
             // TODO reject worker tasks after some timeout(he yet may reconnect)
             socket.on('disconnect', function() {
@@ -34,11 +34,15 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
             socket.on('syntaxError', function(data) {
                 log.error('client ', socket.id, ', task ', data.id, ', reports error:', data.resp);
                 promises[socket.id].reject(data.resp);
+                worker.free = true;
+                emitFreeTask(worker);
             });
 
             socket.on('clientError', function(data) {
                 log.error('client ', socket.id, ', task ', data.id, ', reports error:', data.resp);
                 promises[socket.id].reject(data.resp);
+                worker.free = true;
+                emitFreeTask(worker);
             });
 
             // process client response
@@ -48,7 +52,7 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
                 log.info('data', data.resp);
                 promises[socket.id].resolve(data.resp);
                 worker.free = true;
-                askForTask(worker);
+                emitFreeTask(worker);
             });
         };
         ioServer.on('connection', handleMessage);
@@ -59,7 +63,7 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
         clearInterval(timerId);
     }
 
-    function askForTask(worker) {
+    function emitFreeTask(worker) {
         if (tasks.length > 0) {
             var task = tasks.pop();
             promises[worker.id] = task.deferred;
@@ -92,12 +96,12 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
     }
 
     function addTask(task, deferred) {
-        var w = workers.getFreeWorkers();
-        if (w.length > 0) {
-            askForTask(w[0]);
-            return;
-        }
         tasks.push(newTask(task, '', deferred));
+
+        var w = workers.getFreeWorkers()[0];
+        if (w) {
+            emitFreeTask(w);
+        }
     }
 
     // TODO pending tasks
