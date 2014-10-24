@@ -27,11 +27,9 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
         var handleMessage = function(socket) {
             log.info('New client of dispatcher ', socket.id);
 
-
             // Try to give him a task.
-            console.log(workers);
             var worker = workers.create(socket);
-
+            askForTask(worker);
             // drop old clients
             // TODO reject worker tasks after some timeout(he yet may reconnect)
             socket.on('disconnect', function() {
@@ -62,7 +60,7 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
 
         };
         ioServer.on('connection', handleMessage);
-        timerId = periodicallyDispatchStrategy()
+        // timerId = periodicallyDispatchStrategy()
     }
 
     function stop() {
@@ -70,39 +68,18 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
         clearInterval(timerId);
     }
 
-    function askForTask(client) {
+    function askForTask(worker) {
         if (tasks.length > 0) {
-            var task = task.pop();
-            client.emit(
+            var task = tasks.pop();
+            promises[worker.id] = task.deferred;
+            worker.socket.emit(
                 'task', {
-                    id: newUniqueTaskId(workerId),
+                    id: newUniqueTaskId(worker.id),
                     task: task.task
                 }
             );
-        }
-    }
 
-    // TODO move setInterval to process next tick and to separate startDigest cycle function
-    // TODO check tasks, check resolved promises
-    // TODO tasks.pop() is NOT the best implementation maybe task->state pending?
-    // spams clients with meaning-full task, like good PM
-    function periodicallyDispatchStrategy() {
-        return setInterval(function() {
-            var randomClient, workerId, task;
-            if (noFreeWorkersOrPendingTasks()) {
-                return;
-            }
-            task = tasks.pop();
-            randomClient = Math.floor(Math.random() * workers.length);
-            workerId = workers[randomClient].id;
-            promises[workerId] = task.deferred;
-            workers[randomClient].emit(
-                'task', {
-                    id: newUniqueTaskId(workerId),
-                    task: task.task
-                }
-            );
-        }, DISPATCH_INTERVAL);
+        }
     }
 
     // maybe better hashing algorithm than
