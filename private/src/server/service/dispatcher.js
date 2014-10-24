@@ -1,10 +1,9 @@
-module.exports = function dispatcherService(log, ioServer, serializer, _) {
+module.exports = function dispatcherService(log, ioServer, serializer, _, workers) {
 
     // 10 seconds
     const DISPATCH_INTERVAL = 10000;
 
     // AKA clients
-    var workers = [];
 
     // TODO: task clients send, recieved form clients,
     //TODO maybe tasks here are not required?
@@ -25,13 +24,17 @@ module.exports = function dispatcherService(log, ioServer, serializer, _) {
     // TODO check here validity of client message
     // TODO task manger should decide if we should reject or resolve
     function start() {
-        var handleMessage = function (socket) {
+        var handleMessage = function(socket) {
             log.info('New client of dispatcher ', socket.id);
-            workers.push(socket);
+
+
+            // Try to give him a task.
+            console.log(workers);
+            var worker = workers.create(socket);
 
             // drop old clients
             // TODO reject worker tasks after some timeout(he yet may reconnect)
-            socket.on('disconnect', function () {
+            socket.on('disconnect', function() {
                 var index = workers.indexOf(socket);
                 if (index != -1) {
                     log.info('RIP client', socket.id);
@@ -39,18 +42,18 @@ module.exports = function dispatcherService(log, ioServer, serializer, _) {
                 }
             });
 
-            socket.on('syntaxError', function (data) {
+            socket.on('syntaxError', function(data) {
                 log.error('client ', socket.id, ', task ', data.id, ', reports error:', data.resp);
                 promises[socket.id].reject(data.resp);
             });
 
-            socket.on('clientError', function (data) {
+            socket.on('clientError', function(data) {
                 log.error('client ', socket.id, ', task ', data.id, ', reports error:', data.resp);
                 promises[socket.id].reject(data.resp);
             });
 
             // process client response
-            socket.on('response', function (data) {
+            socket.on('response', function(data) {
                 log.info('Client response ', socket.id);
                 log.info('task id', data.id);
                 log.info('data', data.resp);
@@ -67,12 +70,24 @@ module.exports = function dispatcherService(log, ioServer, serializer, _) {
         clearInterval(timerId);
     }
 
+    function askForTask(client) {
+        if (tasks.length > 0) {
+            var task = task.pop();
+            client.emit(
+                'task', {
+                    id: newUniqueTaskId(workerId),
+                    task: task.task
+                }
+            );
+        }
+    }
+
     // TODO move setInterval to process next tick and to separate startDigest cycle function
     // TODO check tasks, check resolved promises
     // TODO tasks.pop() is NOT the best implementation maybe task->state pending?
     // spams clients with meaning-full task, like good PM
     function periodicallyDispatchStrategy() {
-        return setInterval(function () {
+        return setInterval(function() {
             var randomClient, workerId, task;
             if (noFreeWorkersOrPendingTasks()) {
                 return;
@@ -82,7 +97,10 @@ module.exports = function dispatcherService(log, ioServer, serializer, _) {
             workerId = workers[randomClient].id;
             promises[workerId] = task.deferred;
             workers[randomClient].emit(
-                'task', {id: newUniqueTaskId(workerId), task: task.task}
+                'task', {
+                    id: newUniqueTaskId(workerId),
+                    task: task.task
+                }
             );
         }, DISPATCH_INTERVAL);
     }
