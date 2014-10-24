@@ -56,6 +56,8 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
                 log.info('task id', data.id);
                 log.info('data', data.resp);
                 promises[socket.id].resolve(data.resp);
+                worker.free = true;
+                askForTask(worker);
             });
 
         };
