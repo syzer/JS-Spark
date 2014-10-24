@@ -6,3 +6,4 @@ private/src/client/component
 npm-debug.log
 .*.sw[a-p]
 private/data/log/error.log
+.tmp/
