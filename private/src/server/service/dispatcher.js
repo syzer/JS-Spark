@@ -33,11 +33,7 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
             // drop old clients
             // TODO reject worker tasks after some timeout(he yet may reconnect)
             socket.on('disconnect', function() {
-                var index = workers.indexOf(socket);
-                if (index != -1) {
-                    log.info('RIP client', socket.id);
-                    workers.splice(index, 1);
-                }
+                workers.remove(worker);
             });
 
             socket.on('syntaxError', function(data) {
@@ -101,6 +97,11 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
     }
 
     function addTask(task, deferred) {
+        var w = workers.getFreeWorkers();
+        if (w.length > 0) {
+            askForTask(w[0]);
+            return;
+        }
         tasks.push(newTask(task, '', deferred));
     }
 

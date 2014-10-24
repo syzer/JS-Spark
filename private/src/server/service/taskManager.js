@@ -6,7 +6,7 @@
 module.exports = function taskManager(dispatcher, config) {
 
     // private
-    // TODO task is duplicated in dispacher
+    // TODO task is duplicated in dispatcher
     var tasks = [];
 
     return {

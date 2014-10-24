@@ -8,7 +8,8 @@ module.exports = function workersService(log) {
 
     return {
         create: create,
-        getFree: getFree,
+        getFreeWorkers: getFreeWorkers,
+        remove: remove,
     };
 
     function create(socket) {
@@ -22,11 +23,19 @@ module.exports = function workersService(log) {
         return worker;
     }
 
+    function remove(worker) {
+        var index = workers.indexOf(worker);
+        if (index != -1) {
+            log.info('RIP client', workers[index].socket.id);
+            workers.splice(index, 1);
+        }
+    }
+
     //TODO getBest
-    function getFree() {
+    function getFreeWorkers() {
         return workers.filter(function (worker) {
             return worker.free;
-        })[0];
+        });
     }
 
 };
