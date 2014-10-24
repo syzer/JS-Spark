@@ -25,7 +25,7 @@ module.exports = function workersService(log) {
 
     //TODO getBest
     function getFree() {
-        return workers.filter(function(worker){
+        return workers.filter(function (worker) {
             return worker.free;
         })[0];
     }
