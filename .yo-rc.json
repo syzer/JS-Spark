@@ -6,7 +6,7 @@
         "routesBase": "/api/",
         "pluralizeRoutes": true,
         "insertSockets": true,
-        "registerSocketsFile": "src/private/server/config/socketio.js",
+        "registerSocketsFile": "private/src/server/config/socketio.js",
         "socketsNeedle": "// Insert sockets below",
         "filters": {
             "js": true,
@@ -29,7 +29,7 @@
         "directiveDirectory": "private/src/client/app/",
         "filterDirectory": "private/src/client/app/",
         "serviceDirectory": "private/src/client/app/",
-        "basePath": "client",
+        "basePath": "private/src/client",
         "filters": [
             "uirouter"
         ],

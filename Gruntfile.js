@@ -27,7 +27,7 @@ module.exports = function (grunt) {
         // Project settings
         yeoman: {
             // configurable paths
-            client: require('./bower.json').appPath || 'client',
+            client: require('./bower.json').appPath || 'private/src/client',
             dist: 'dist'
         },
         express: {
@@ -36,7 +36,7 @@ module.exports = function (grunt) {
             },
             dev: {
                 options: {
-                    script: 'private/server/app.js',
+                    script: 'private/src/server/app.js',
                     debug: true
                 }
             },
@@ -341,7 +341,7 @@ module.exports = function (grunt) {
                         src: [
                             '*.{ico,png,txt}',
                             '.htaccess',
-                            'bower_components/**/*',
+                            'component/**/*',
                             'assets/images/{,*/}*.{webp}',
                             'assets/fonts/**/*',
                             'index.html'
