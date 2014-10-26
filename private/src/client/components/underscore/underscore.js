@@ -1,6 +1,7 @@
 /**
  * Created by syzer on 5/12/2014.
  */
+// assumes underscore has already been loaded on the page
 angular
     .module('_', [])
     .factory('_', function () {
@@ -17,5 +18,5 @@ angular
             isISODate: isISODate
         });
 
-        return _; // assumes underscore has already been loaded on the page
+        return _;
     });
