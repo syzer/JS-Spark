@@ -2,6 +2,8 @@
  * Created by syzer on 7/24/2014.
  * Its just a Proof of Concept
  */
+'use strict';
+
 var jsSpark,
     _;
 
@@ -73,6 +75,6 @@ setTimeout(function delayedTask() {
 di.get('promise')
     .all([task.promise, task2.promise, task3])
     .then(function (data) {
-        console.log('All tasks done', data);
+        console.log('Tasks 1 to 3 done', data);
         di.get('service.dispatcher').stop();
     });
