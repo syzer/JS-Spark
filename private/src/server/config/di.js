@@ -63,7 +63,7 @@ var services = {
         console.log('Io server listening on ' + ioPort);
         return di.get('io').listen(ioPort);
     },
-    port: (process.env.PORT || 8000),
+    port: (process.env.PORT || 8001),
     promise: require('bluebird'),
     'service.jsSpark': function addService(di) {
         return require(ROOT_PATH + 'service/jsSpark')(

@@ -65,7 +65,7 @@ setTimeout(function delayedTask() {
             .createTask()
             .promise
             .then(function(data) {
-                console.log('total sum of 1 to 1000 odd numbers is:', data);
+                console.log('Total sum of 1 to 1000 odd numbers is:', data);
             });
     }, 5000
 );
