@@ -29,7 +29,7 @@ var services = {
         return app;
     },
     bodyParser: function addService() {
-        return require('body-parser')().urlencoded({
+        return require('body-parser').urlencoded({
             extended: true
         })
     },
@@ -59,23 +59,22 @@ var services = {
     http: require('http'),
     io: require('socket.io'),
     'io.server': function addService(di) {
-        var ioPort = di.get('port');
-        console.log('Io server listening on ' + ioPort);
-        return di.get('io').listen(ioPort);
+        var server = di.get('server');
+
+        return di.get('io').listen(server);
     },
-    port: (process.env.PORT || 8001),
+    port: (process.env.PORT || 9000),
     promise: require('bluebird'),
-    'service.jsSpark': function addService(di) {
-        return require(ROOT_PATH + 'service/jsSpark')(
-            di.get('service.taskManager'),
-            di.get('defer')
-        );
-    },
     log: function addService(di) {
         return require(ROOT_PATH + 'service/logging')(
             di.get('config'),
             di.get('winston')
         ).createLog();
+    },
+    'server': function addService(di) {
+        var app = di.get('app');
+        // can easily switch here for https
+        return di.get('http').createServer(app);
     },
     'service.dispatcher': function addService(di) {
         return require(ROOT_PATH + 'service/dispatcher')(
@@ -84,6 +83,12 @@ var services = {
             di.get('service.serializer'),
             di.get('_'),
             di.get('service.workers')
+        );
+    },
+    'service.jsSpark': function addService(di) {
+        return require(ROOT_PATH + 'service/jsSpark')(
+            di.get('service.taskManager'),
+            di.get('defer')
         );
     },
     'service.taskManager': function addService(di) {
@@ -113,14 +118,6 @@ var services = {
         return require('express-session')({
             secret: 'shhhhhhhhh!'
         });
-    },
-    static_: function addService(di) {
-        // XXX This is a truly evil way to construct paths
-        var projRoot = __dirname.slice(0, __dirname.search(/[\/\\]private[\/\\]/));
-        var sep = __dirname[1] === ":" && "\\" || "/";
-        var statRoot = projRoot + sep + "public" + sep + "static";
-        console.log(statRoot);
-        return di.get("express")["static"](statRoot);
     },
     util: require('util'),
     winston: require('winston')

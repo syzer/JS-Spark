@@ -13,6 +13,8 @@ var services = require(ROOT + 'config/di').services;
 
 // setup Dependencies
 var di = require(ROOT + 'controller/di')(services);
+// start listening on given port
+di.get('server').listen(di.get('port'));
 
 // lodash
 _ = di.get('_');

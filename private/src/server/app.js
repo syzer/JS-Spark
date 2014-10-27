@@ -19,13 +19,19 @@ if (config.seedDB) {
     require('./config/seed');
 }
 
+// setup Dependencies
+var ROOT = './';
+var di = require(ROOT + 'controller/di')(
+    require(ROOT + 'config/di').services
+);
+
 // Setup server
-var app = express();
-var server = require('http').createServer(app);
-var socketio = require('socket.io').listen(server);
+var app = di.get('app');
+var server = di.get('server');
+var socketio = di.get('io.server');
 require('./config/socketio')(socketio);
 require('./config/express')(app);
-require('./routes')(app);
+require('./routes')(app, di);
 
 // Start server
 server.listen(config.port, config.ip, function () {

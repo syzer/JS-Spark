@@ -2,7 +2,7 @@
  * Created by syzer on 7/24/2014.
  */
 var io = require('socket.io-client'),
-    ioClient = io.connect('http://localhost:8001'),
+    ioClient = io.connect('http://localhost:9000'),
     _ = require('lodash');
 
 ioClient.on('task', function (receivedTask) {
