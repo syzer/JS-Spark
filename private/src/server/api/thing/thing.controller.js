@@ -29,7 +29,7 @@ exports.show = function (req, res) {
             return handleError(res, err);
         }
         if (!thing) {
-            return res.send(404);
+            return res.status(404).end();
         }
         return res.json(thing);
     });
@@ -55,7 +55,7 @@ exports.update = function (req, res) {
             return handleError(res, err);
         }
         if (!thing) {
-            return res.send(404);
+            return res.status(404).end();
         }
         var updated = _.merge(thing, req.body);
         updated.save(function (err) {
@@ -74,13 +74,13 @@ exports.destroy = function (req, res) {
             return handleError(res, err);
         }
         if (!thing) {
-            return res.send(404);
+            return res.status(404).end();
         }
         thing.remove(function (err) {
             if (err) {
                 return handleError(res, err);
             }
-            return res.send(204);
+            return res.status(204).end();
         });
     });
 };
