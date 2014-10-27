@@ -3,7 +3,7 @@
  * TODO task give task statistics
  * TODO give clients statistics
  */
-module.exports = function taskManager(dispatcher, config) {
+module.exports = function taskManagerService(config, log, dispatcher, workersService) {
 
     // private
     // TODO task is duplicated in dispatcher
@@ -11,7 +11,8 @@ module.exports = function taskManager(dispatcher, config) {
 
     return {
         init: init,
-        addTask: addTask
+        addTask: addTask,
+        getWorkers: workersService.get
     };
 
     // public methods
@@ -23,5 +24,4 @@ module.exports = function taskManager(dispatcher, config) {
         dispatcher.addTask(task, deferred);
         tasks.push(task);
     }
-
 };

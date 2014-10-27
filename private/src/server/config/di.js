@@ -7,7 +7,9 @@ var DATA_PATH = ROOT_PATH + '../data/';
 var PROD_SETTINGS = 'production';
 
 var services = {
-    _: require('lodash'),
+    _: function addService(di) {
+        return require('lodash');
+    },
     app: function addService(di) {
         var express = di.get('express');
         var app = express();
@@ -86,17 +88,19 @@ var services = {
     },
     'service.taskManager': function addService(di) {
         var taskManager = require(ROOT_PATH + 'service/taskManager')(
+            di.get('config'),
+            di.get('log'),
             di.get('service.dispatcher'),
-            di.get('log')
+            di.get('service.workers')
         );
         taskManager.init();
         return taskManager;
     },
     'service.workers': function addService(di) {
-        var workers = require(ROOT_PATH + 'service/workers')(
-            di.get('log')
+        return require(ROOT_PATH + 'service/workers')(
+            di.get('log'),
+            di.get('_')
         );
-        return workers;
     },
     // Lets you use HTTP verbs such as PUT or DELETE in places you normally can't.
     methodOverride: require('method-override')(),

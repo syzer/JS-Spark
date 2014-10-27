@@ -70,9 +70,6 @@ setTimeout(function delayedTask() {
     }, 5000
 );
 
-
-
-
 di.get('promise')
     .all([task.promise, task2.promise, task3])
     .then(function (data) {

@@ -1,7 +1,7 @@
 /**
  * Created by syzer on 7/24/2014.
  */
-module.exports = function workersService(log) {
+module.exports = function workersService(log, _) {
     'use strict';
 
     var workers = [];
@@ -10,6 +10,8 @@ module.exports = function workersService(log) {
         create: create,
         getFreeWorkers: getFreeWorkers,
         remove: remove,
+        get: get,
+        getFirstFree: getFirstFree
     };
 
     function create(socket) {
@@ -29,6 +31,15 @@ module.exports = function workersService(log) {
             log.info('RIP client', workers[index].socket.id);
             workers.splice(index, 1);
         }
+    }
+
+    function get() {
+        return workers;
+    }
+
+    // + getFirstFree::array -> object
+    function getFirstFree() {
+        return _.first(workers, 'free')[0];
     }
 
     //TODO getBest

@@ -98,7 +98,7 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
     function addTask(task, deferred) {
         tasks.push(newTask(task, '', deferred));
 
-        var w = workers.getFreeWorkers()[0];
+        var w = workers.getFirstFree();
         if (w) {
             emitFreeTask(w);
         }
