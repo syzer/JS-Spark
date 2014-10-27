@@ -11,6 +11,6 @@ exports.index = function (req, res) {
         {id: '1ooHn-0id9eXLxRgAAAB', email: 'some@that.loggedin.com'}
     ];
 
-    res.json(200, users);
+    res.status(200).json(users);
 
 };
