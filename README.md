@@ -40,12 +40,23 @@ How(Getting started)
 Prerequisites, install Node.js, then:
 
         npm install
-        node server.js
-        node client.js
+        node server
+        node client
         
 Start on your machine and see how the clients do all calculation.
 
 wait for clients to do all heavy lifting
+
+Running with new improved UI
+----------------------------
+        npm install
+        grunt build
+        grunt serve
+
+To spam more light-weight clients:        
+        
+        node client
+        
 
 Usage
 =====
