@@ -5,12 +5,11 @@
  * Get list of users
  * restriction: 'admin'
  */
-exports.index = function (req, res) {
-    var users = [
-        {id: '-ooHn-0id9eXLxRgAAAB'},
-        {id: '1ooHn-0id9eXLxRgAAAB', email: 'some@that.loggedin.com'}
-    ];
+module.exports = function (taskManagerService) {
 
-    res.status(200).json(users);
-
+    return {
+        index: function (req, res) {
+            res.status(200).json(taskManagerService.getWorkers());
+        }
+    };
 };

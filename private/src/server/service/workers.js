@@ -33,8 +33,37 @@ module.exports = function workersService(log, _) {
         }
     }
 
+//        { socket:
+//          { nsp: [Object],
+//            server: [Object],
+//            adapter: [Object],
+//            id: 'haQJ-zLwkTFof2RVAAAB',
+//            client: [Object],
+//            conn: [Object],
+//            rooms: [Object],
+//            acks: {},
+//            connected: true,
+//            disconnected: false,
+//            handshake: [Object],
+//            address: 'undefined:undefined',
+//            connectedAt: Mon Oct 27 2014 21:37:46 GMT+0100 (W. Europe Standard Time),
+//            _events: [Object]
+//          },
+//        free: false,
+//        id: 'haQJ-zLwkTFof2RVAAAB' },
     function get() {
-        return workers;
+        return _(workers)
+            .map(function (worker) {
+                return {
+                    id: worker.id,
+                    lastConnectedAt: worker.socket.connectedAt,
+                    connected: worker.socket.connected,
+                    handshake: worker.socket.handshake,
+                    free: worker.free,
+                    rooms: worker.socket.rooms
+                }
+            })
+            .value();
     }
 
     // + getFirstFree::array -> object

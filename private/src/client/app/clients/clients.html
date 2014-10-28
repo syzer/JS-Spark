@@ -1,12 +1,32 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
 <div class="container">
-    <p>The delete user and user index api routes are restricted to users with the 'admin' role.</p>
-    <ul class="list-group">
-        <li class="list-group-item" ng-repeat="client in clients">
-            <strong>{{client.id}}</strong><br>
-            <span class="text-muted">{{client.email}}</span>
-            <a ng-click="delete(client)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
-        </li>
-    </ul>
+    <h3>Here are all clients that are connected:</h3>
+
+    <alert type="success" close="closeAlert($index)">These clients have no tasks</alert>
+    <alert type="info" close="closeAlert($index)">These clients are calculating</alert>
+    <table class="table table-condensed table-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Id</th>
+            <th>Email</th>
+            <th>IP</th>
+            <th>Free</th>
+            <th>Connected @</th>
+            <th>Computing ques</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="animate-repeat" ng-repeat="client in clients" ng-class="{'success':client.free, 'info':!client.free}">
+            <td>{{$index+1}}</td>
+            <td><strong>{{client.id}}</strong></td>
+            <td><span class="text-muted">{{client.email}}</span></td>
+            <td>{{client.handshake.address}}</td>
+            <td>{{client.free|boolean}}</td>
+            <td>{{client.lastConnectedAt|date : 'medium'}}</td>
+            <td>{{client.rooms|json}}</td>
+        </tr>
+        </tbody>
+    </table>
 </div>

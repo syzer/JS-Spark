@@ -1,11 +1,14 @@
-'use strict';
+module.exports = function clientIndex(di) {
+    'use strict';
 
-var express = require('express');
-var controller = require('./client.controller');
-var auth = require('../../auth/auth.service');
+    var express = require('express');
+    var taskManagerService = di.get('service.taskManager');
+    var controller = require('./client.controller')(taskManagerService);
+    var auth = require('../../auth/auth.service');
 
-var router = express.Router();
+    var router = express.Router();
 
-router.get('/', auth.hasRole('admin'), controller.index);
+    router.get('/', auth.hasRole('admin'), controller.index);
 
-module.exports = router;
+    return router;
+};
