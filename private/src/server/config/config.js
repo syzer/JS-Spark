@@ -36,7 +36,7 @@ module.exports = function (ROOT_PATH, DATA_PATH) {
         log: {
             error: {
                 file: (function () {
-                    return DATA_PATH + 'error.log';
+                    return DATA_PATH + '/log/error.log';
                 })()
             }
         }

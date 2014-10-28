@@ -1,7 +1,7 @@
 module.exports = function dispatcherService(log, ioServer, serializer, _, workers) {
 
-    // TODO: task clients send, recieved form clients,
-    //TODO maybe tasks here are not required?
+    // TODO: task clients send, received form clients,
+    // TODO maybe tasks here are not required?
     var tasks = [];
 
     // maybe merge with tasks
@@ -18,31 +18,30 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
 
     // TODO check here validity of client message
     // TODO task manger should decide if we should reject or resolve
+    // TODO reject worker tasks after some timeout(he yet may reconnect)
     function start() {
         var handleMessage = function(socket) {
+            var onError;
+
             log.info('New client of dispatcher ', socket.id);
+
+            // this is optional
+            authenticateClient(socket);
 
             // Try to give him a task.
             var worker = workers.create(socket);
             emitFreeTask(worker);
+
+
             // drop old clients
-            // TODO reject worker tasks after some timeout(he yet may reconnect)
             socket.on('disconnect', function() {
                 workers.remove(worker);
+                promises[socket.id].reject('Client disconnected');
             });
 
-            socket.on('syntaxError', function(data) {
-                log.error('client ', socket.id, ', task ', data.id, ', reports error:', data.resp);
-                promises[socket.id].reject(data.resp);
-                worker.free = true;
-                emitFreeTask(worker);
-            });
-
-            socket.on('clientError', function(data) {
-                log.error('client ', socket.id, ', task ', data.id, ', reports error:', data.resp);
-                promises[socket.id].reject(data.resp);
-                worker.free = true;
-                emitFreeTask(worker);
+            // When the client emits 'info', this listens and executes
+            socket.on('info', function (data) {
+                console.info('[%s] %s', socket.address, JSON.stringify(data, null, 2));
             });
 
             // process client response
@@ -54,8 +53,38 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
                 worker.free = true;
                 emitFreeTask(worker);
             });
+
+            onError = _.partial(onClientError, worker);
+            socket.on('syntaxError', onError);
+            socket.on('clientError', onError);
+
+            function onClientError(worker, data) {
+                log.error('client ', socket.id, ', task ', data.id, ', reports error:', data.resp);
+                promises[socket.id].reject(data.resp);
+                worker.free = true;
+                emitFreeTask(worker);
+            }
         };
         ioServer.on('connection', handleMessage);
+    }
+
+    function authenticateClient(socket) {
+        // We can authenticate socket.io users and access their token through socket.handshake.decoded_token
+        //
+        // 1. You will need to send the token in `client/components/socket/socket.service.js`
+        //
+        // 2. Require authentication here:
+        // socketio.use(require('socketio-jwt').authorize({
+        //   secret: config.secrets.session,
+        //   handshake: true
+        // }));
+
+        // set socket address
+        socket.address = socket.handshake.address !== null ?
+            socket.handshake.address.address + ':' + socket.handshake.address.port :
+            process.env.DOMAIN;
+
+        socket.connectedAt = new Date();
     }
 
     function stop() {

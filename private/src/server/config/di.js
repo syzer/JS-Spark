@@ -3,7 +3,7 @@
  */
 'use strict';
 var ROOT_PATH = __dirname + '/../';
-var DATA_PATH = ROOT_PATH + '../data/';
+var DATA_PATH = ROOT_PATH + '../../data/';
 var PROD_SETTINGS = 'production';
 
 var services = {

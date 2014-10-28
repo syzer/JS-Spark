@@ -58,7 +58,8 @@ task3 = task
         console.log('Task could not compute ' + reason.toString());
     });
 
-setTimeout(function delayedTask() {
+setTimeout(
+    function delayedTask() {
         jsSpark(_.range(1000))
             .filter(function isOdd(num) {
                 return num % 2;
@@ -68,7 +69,7 @@ setTimeout(function delayedTask() {
             })
             .createTask()
             .promise
-            .then(function(data) {
+            .then(function (data) {
                 console.log('Total sum of 1 to 1000 odd numbers is:', data);
             });
     }, 5000
