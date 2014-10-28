@@ -1,4 +1,4 @@
-module.exports = function dispatcherService(log, ioServer, serializer, _, workers) {
+module.exports = function dispatcherService(log, ioServer, serializer, _, workers, uiApplicationModels) {
 
     // TODO: task clients send, received form clients,
     // TODO maybe tasks here are not required?
@@ -20,23 +20,36 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
     // TODO task manger should decide if we should reject or resolve
     // TODO reject worker tasks after some timeout(he yet may reconnect)
     function start() {
-        var handleMessage = function(socket) {
-            var onError;
+        var handleMessage = function (socket) {
+            var onError,
+                worker;
 
             log.info('New client of dispatcher ', socket.id);
+            log.info('[%s] CONNECTED', socket.address);
 
             // this is optional
             authenticateClient(socket);
 
+            registerApplicationHandlers(socket);
+
             // Try to give him a task.
-            var worker = workers.create(socket);
+            worker = workers.create(socket);
             emitFreeTask(worker);
 
+            // process client response
+            socket.on('response', function (data) {
+                log.info('Client response ', socket.id);
+                log.info('task id', data.id);
+                log.info('data', data.resp);
+                promises[socket.id] && promises[socket.id].resolve(data.resp);
+                worker.free = true;
+                emitFreeTask(worker);
+            });
 
-            // drop old clients
-            socket.on('disconnect', function() {
+            // drop dead clients
+            socket.on('disconnect', function () {
                 workers.remove(worker);
-                promises[socket.id].reject('Client disconnected');
+                promises[socket.id] && promises[socket.id].reject('Client disconnected');
             });
 
             // When the client emits 'info', this listens and executes
@@ -44,28 +57,25 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
                 console.info('[%s] %s', socket.address, JSON.stringify(data, null, 2));
             });
 
-            // process client response
-            socket.on('response', function(data) {
-                log.info('Client response ', socket.id);
-                log.info('task id', data.id);
-                log.info('data', data.resp);
-                promises[socket.id].resolve(data.resp);
-                worker.free = true;
-                emitFreeTask(worker);
-            });
-
-            onError = _.partial(onClientError, worker);
+            onError = _.partial(onClientError, worker, socket);
             socket.on('syntaxError', onError);
             socket.on('clientError', onError);
-
-            function onClientError(worker, data) {
-                log.error('client ', socket.id, ', task ', data.id, ', reports error:', data.resp);
-                promises[socket.id].reject(data.resp);
-                worker.free = true;
-                emitFreeTask(worker);
-            }
         };
         ioServer.on('connection', handleMessage);
+    }
+
+    // its getting java-ish
+    function registerApplicationHandlers(socket) {
+        uiApplicationModels.forEach(function (model) {
+            model.register(socket);
+        });
+    }
+
+    function onClientError(worker, socket, data) {
+        log.error('client ', socket.id, ', task ', data.id, ', reports error:', data.resp);
+        promises[socket.id] && promises[socket.id].reject(data.resp);
+        worker.free = true;
+        emitFreeTask(worker);
     }
 
     function authenticateClient(socket) {

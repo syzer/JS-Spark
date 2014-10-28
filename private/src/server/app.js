@@ -16,7 +16,7 @@ mongoose.connect(config.mongo.uri, config.mongo.options);
 
 // Populate DB with sample data
 if (config.seedDB) {
-    require('./config/seed');
+    require('./config/seedDb');
 }
 
 // setup Dependencies
@@ -40,3 +40,26 @@ server.listen(config.port, config.ip, function () {
 
 // Expose app
 exports = module.exports = app;
+
+var _ = di.get('_');
+var jsSpark = di.get('service.jsSpark');
+
+setTimeout(
+    function delayedTask() {
+        console.log('Time is up!');
+        jsSpark(_.range(1000))
+            .filter(function isOdd(num) {
+                return num % 2;
+            })
+            .reduce(function sumUp(sum, num) {
+                return sum + num;
+            })
+            .createTask()
+            .promise
+            .then(function (data) {
+                console.log('Total sum of 1 to 1000 odd numbers is:', data);
+            });
+    }, 5000
+);
+
+

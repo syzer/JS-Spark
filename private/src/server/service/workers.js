@@ -60,7 +60,9 @@ module.exports = function workersService(log, _) {
                     connected: worker.socket.connected,
                     handshake: worker.socket.handshake,
                     free: worker.free,
-                    rooms: worker.socket.rooms
+                    rooms: worker.socket.rooms,
+                    points: worker.points,
+                    benchmark: worker.benchmark
                 }
             })
             .value();

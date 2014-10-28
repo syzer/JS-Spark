@@ -63,6 +63,8 @@ var services = {
 
         return di.get('io').listen(server);
     },
+    // Lets you use HTTP verbs such as PUT or DELETE in places you normally can't.
+    methodOverride: require('method-override')(),
     port: (process.env.PORT || 9000),
     promise: require('bluebird'),
     log: function addService(di) {
@@ -82,13 +84,19 @@ var services = {
             di.get('io.server'),
             di.get('service.serializer'),
             di.get('_'),
-            di.get('service.workers')
+            di.get('service.workers'),
+            di.get('service.uiApplicationModels')
         );
     },
     'service.jsSpark': function addService(di) {
         return require(ROOT_PATH + 'service/jsSpark')(
             di.get('service.taskManager'),
             di.get('defer')
+        );
+    },
+    'service.serializer': function addService(di) {
+        return require(ROOT_PATH + 'service/serializer')(
+            JSON
         );
     },
     'service.taskManager': function addService(di) {
@@ -101,17 +109,16 @@ var services = {
         taskManager.init();
         return taskManager;
     },
+    'service.uiApplicationModels': function addService(di) {
+        return [
+            require(ROOT_PATH + 'api/thing/thing.socket')
+            // Insert OTHER sockets below
+            ]
+    },
     'service.workers': function addService(di) {
         return require(ROOT_PATH + 'service/workers')(
             di.get('log'),
             di.get('_')
-        );
-    },
-    // Lets you use HTTP verbs such as PUT or DELETE in places you normally can't.
-    methodOverride: require('method-override')(),
-    'service.serializer': function addService(di) {
-        return require(ROOT_PATH + 'service/serializer')(
-            JSON
         );
     },
     session: function addService(di) {
