@@ -142,9 +142,4 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
             emitFreeTask(w);
         }
     }
-
-    // TODO pending tasks
-    function noFreeWorkersOrPendingTasks() {
-        return _.isEmpty(workers) || _.isEmpty(tasks);
-    }
 };
