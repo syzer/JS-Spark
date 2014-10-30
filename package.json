@@ -2,7 +2,7 @@
     "name": "JS-Spark",
     "description": "Distributed calculation/ data processing system",
     "author": "syzer <syzer3@gmail.com>",
-    "version": "0.0.1",
+    "version": "0.2.0",
     "dependencies": {
         "bluebird": "^2.3.4",
         "body-parser": "^1.5.0",
