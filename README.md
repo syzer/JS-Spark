@@ -144,3 +144,11 @@ resources you can use to dive into the topic:
 
 * [Map-Reduce revisited](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.104.5859&rep=rep1&type=pdf)
 * [Awesome BigData - A curated list of awesome frameworks, resources and other things.](https://github.com/onurakpolat/awesome-bigdata)
+
+
+Required
+=========
+* mongoDB
+default connection parameters:
+
+* mongodb://localhost/jssparkui-dev user: 'js-spark', pass: 'js-spark1'
