@@ -24,6 +24,7 @@ jsSpark = di.get('service.jsSpark');
 var task, task2, task3, doElections;
 
 task = jsSpark(_.range(10))
+    // https://lodash.com/docs#sortBy
     .add('sortBy', function _sortBy(el) {
         return Math.sin(el);
     })
@@ -92,5 +93,5 @@ doElections = jsSpark(_.range(10))
         console.log('Total sum of numbers from 1 to 10 is:', data);
     })
     .catch(function whenClientsArgue(reason) {
-        console.log('Clients could not agree, ', + reason.toString());
+        console.log('Most clients could not agree, ', + reason.toString());
     });

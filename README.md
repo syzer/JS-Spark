@@ -47,8 +47,8 @@ Start on your machine and see how the clients do all calculation.
 
 wait for clients to do all heavy lifting
 
-Running with new improved UI
-----------------------------
+Now featuring a new, improved UI
+--------------------------------
         npm install
         grunt build
         grunt serve
@@ -60,24 +60,70 @@ To spam more light-weight clients:
 
 Usage
 =====
-Client side heavy CPU computation
-----------------------------------
+Client side heavy CPU computation(MapReduce)
+--------------------------------------------
 
 ```JavaScript
-task = jsSpark([20])
+task = jsSpark([20, 30, 40, 50])
     // this is executed on client side
     .map(function addOne(num) {
         return num + 1;
     })
+    .reduce(function sumUp(sum, num) {
+        return sum + num;
+    })
     .createTask();
 ```
+
+Distributed version of lodash/underscore 
+----------------------------------------
+
+```JavaScript
+jsSpark(_.range(10))
+     // https://lodash.com/docs#sortBy
+    .add('sortBy', function _sortBy(el) {
+        return Math.sin(el);
+    })
+    .map(function multiplyBy2(el) {
+        return el * 2;
+    })
+    .filter(function remove5and10(el) {
+        return el % 5 !== 0;
+    })
+    // sum of  [ 2, 4, 6, 8, 12, 14, 16, 18 ] => 80
+    .reduce(function sumUp(arr, el) {
+        return arr + el;
+    })
+    .createTask();
+```
+
+
+Multiple retry and clients elections
+------------------------------------
+
+```JavaScript
+jsSpark(_.range(10))
+    .reduce(function sumUp(sum, num) {
+        return sum + num;
+    })
+    // how many times repeat calculations
+    .createTask({times: 6})
+    .then(function whenClientsFinished(data) {
+        // may also get 2 most relevant answers
+        console.log('Most clients believe that:');
+        console.log('Total sum of numbers from 1 to 10 is:', data);
+    })
+    .catch(function whenClientsArgue(reason) {
+        console.log('Most clients could not agree, ', + reason.toString());
+    });
+```
+
 
 Combined usage with server side processing
 ------------------------------------------
 
 ```JavaScript
 task3 = task
-    .promise
     .then(function serverSideComputingOfData(data) {
         var basesNumber = data.split(',').map(Number)[0] + 21;
         // All your 101 base are belong to us
@@ -88,6 +134,8 @@ task3 = task
         console.log('Task could not compute ' + reason.toString());
     });
 ```
+
+
 
 More references
 ===============
