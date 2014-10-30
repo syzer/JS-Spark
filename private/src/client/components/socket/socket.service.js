@@ -18,7 +18,7 @@ module.exports = function (_) {
         registerJsSparkTaskHandler: registerJsSparkTaskHandler
     };
 
-    function registerJSparkTaskHandler(ioClient) {
+    function registerJsSparkTaskHandler(ioClient) {
         ioClient.on('task', function (receivedTask) {
             var task,
                 response;
