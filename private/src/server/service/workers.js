@@ -17,7 +17,7 @@ module.exports = function workersService(log, _) {
     function create(socket) {
         var worker = {
             socket: socket,
-            free: false,
+            free: true,
             id: socket.id
         };
         workers.push(worker);
@@ -33,27 +33,27 @@ module.exports = function workersService(log, _) {
         }
     }
 
-//        { socket:
-//          { nsp: [Object],
-//            server: [Object],
-//            adapter: [Object],
-//            id: 'haQJ-zLwkTFof2RVAAAB',
-//            client: [Object],
-//            conn: [Object],
-//            rooms: [Object],
-//            acks: {},
-//            connected: true,
-//            disconnected: false,
-//            handshake: [Object],
-//            address: 'undefined:undefined',
-//            connectedAt: Mon Oct 27 2014 21:37:46 GMT+0100 (W. Europe Standard Time),
-//            _events: [Object]
-//          },
-//        free: false,
-//        id: 'haQJ-zLwkTFof2RVAAAB' },
+    //        { socket:
+    //          { nsp: [Object],
+    //            server: [Object],
+    //            adapter: [Object],
+    //            id: 'haQJ-zLwkTFof2RVAAAB',
+    //            client: [Object],
+    //            conn: [Object],
+    //            rooms: [Object],
+    //            acks: {},
+    //            connected: true,
+    //            disconnected: false,
+    //            handshake: [Object],
+    //            address: 'undefined:undefined',
+    //            connectedAt: Mon Oct 27 2014 21:37:46 GMT+0100 (W. Europe Standard Time),
+    //            _events: [Object]
+    //          },
+    //        free: false,
+    //        id: 'haQJ-zLwkTFof2RVAAAB' },
     function get() {
         return _(workers)
-            .map(function (worker) {
+            .map(function(worker) {
                 return {
                     id: worker.id,
                     lastConnectedAt: worker.socket.connectedAt,
@@ -75,7 +75,7 @@ module.exports = function workersService(log, _) {
 
     //TODO getBest
     function getFreeWorkers() {
-        return workers.filter(function (worker) {
+        return workers.filter(function(worker) {
             return worker.free;
         });
     }
