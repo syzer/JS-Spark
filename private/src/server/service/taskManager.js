@@ -26,7 +26,9 @@ module.exports = function taskManagerService(config, log, dispatcher, workersSer
             return deferred.promise;
         }
 
-        _.times(taskConfig.times, function (n) {
+        todos.push(deferred.promise);
+
+        _.times(taskConfig.times - 1, function (n) {
             deferred = defer();
             dispatcher.addTask(task, deferred);
             todos.push(deferred.promise);
