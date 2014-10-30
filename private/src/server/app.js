@@ -46,7 +46,7 @@ var jsSpark = di.get('service.jsSpark');
 
 setTimeout(
     function delayedTask() {
-        console.log('Time is up!');
+        console.log('Sending task to calculate');
         jsSpark(_.range(1000))
             .filter(function isOdd(num) {
                 return num % 2;
@@ -55,7 +55,6 @@ setTimeout(
                 return sum + num;
             })
             .createTask()
-            .promise
             .then(function (data) {
                 console.log('Total sum of 1 to 1000 odd numbers is:', data);
             });

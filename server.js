@@ -21,7 +21,7 @@ _ = di.get('_');
 
 jsSpark = di.get('service.jsSpark');
 
-var task, task2, task3;
+var task, task2, task3, doElections;
 
 task = jsSpark(_.range(10))
     .add('sortBy', function _sortBy(el) {
@@ -47,7 +47,6 @@ task2 = jsSpark([20])
     .createTask();
 
 task3 = task
-    .promise
     .then(function serverSideComputingOfData(data) {
         var basesNumber = data.split(',').map(Number)[0] + 21;
         // All your 101 base are belong to us
@@ -68,7 +67,6 @@ setTimeout(
                 return sum + num;
             })
             .createTask()
-            .promise
             .then(function (data) {
                 console.log('Total sum of 1 to 1000 odd numbers is:', data);
             });
@@ -76,8 +74,23 @@ setTimeout(
 );
 
 di.get('promise')
-    .all([task.promise, task2.promise, task3])
+    .all([task, task2, task3])
     .then(function (data) {
         console.log('Tasks 1 to 3 done', data);
         di.get('service.dispatcher').stop();
+    });
+
+doElections = jsSpark(_.range(10))
+    .reduce(function sumUp(sum, num) {
+        return sum + num;
+    })
+    // how many times repeat calculations
+    .createTask({times: 3})
+    .then(function whenClientsFinished(data) {
+        // may also get 2 most relevant answers
+        console.log('Most clients believe that:');
+        console.log('Total sum of numbers from 1 to 10 is:', data);
+    })
+    .catch(function whenClientsArgue(reason) {
+        console.log('Clients could not agree, ', + reason.toString());
     });

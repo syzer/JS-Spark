@@ -90,8 +90,7 @@ var services = {
     },
     'service.jsSpark': function addService(di) {
         return require(ROOT_PATH + 'service/jsSpark')(
-            di.get('service.taskManager'),
-            di.get('defer')
+            di.get('service.taskManager')
         );
     },
     'service.serializer': function addService(di) {
@@ -104,7 +103,10 @@ var services = {
             di.get('config'),
             di.get('log'),
             di.get('service.dispatcher'),
-            di.get('service.workers')
+            di.get('service.workers'),
+            di.get('defer'),
+            di.get('promise'),
+            di.get('_')
         );
         taskManager.init();
         return taskManager;
