@@ -146,9 +146,11 @@ resources you can use to dive into the topic:
 * [Awesome BigData - A curated list of awesome frameworks, resources and other things.](https://github.com/onurakpolat/awesome-bigdata)
 
 
-Required
-=========
+Required to fun UI
+==================
 * mongoDB
 default connection parameters:
 
 * mongodb://localhost/jssparkui-dev user: 'js-spark', pass: 'js-spark1'
+
+* to run server side code the db is not required
