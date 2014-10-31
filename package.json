@@ -1,8 +1,8 @@
 {
     "name": "js-spark",
-    "description": "Distributed calculation/ data processing system",
+    "description": "Distributed calculation / data processing system",
     "author": "syzer <syzer3@gmail.com>",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "dependencies": {
         "bluebird": "^2.3.4",
         "body-parser": "^1.5.0",
@@ -90,7 +90,7 @@
     },
     "engine": "node >= 0.6.6",
     "repository" : {
-        "type" : "git"
-        , "url" : "https://github.com/syzer/JS-Spark"
+        "type" : "git",
+        "url" : "http://github.com/syzer/JS-Spark"
     }
 }
