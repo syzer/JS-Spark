@@ -15,6 +15,7 @@
             <th>Free</th>
             <th>Connected @</th>
             <th>Computing ques</th>
+            <th>Points</th>
         </tr>
         </thead>
         <tbody>
@@ -24,8 +25,9 @@
             <td><span class="text-muted">{{client.email}}</span></td>
             <td>{{client.handshake.address}}</td>
             <td>{{client.free|boolean}}</td>
-            <td>{{client.lastConnectedAt|date : 'medium'}}</td>
+            <td>{{client.connectedAt|date : 'medium'}}</td>
             <td>{{client.rooms|json}}</td>
+            <td>{{client.points}}</td>
         </tr>
         </tbody>
     </table>

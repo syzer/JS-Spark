@@ -42,7 +42,7 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
                 log.info('task id', data.id);
                 log.info('data', data.resp);
                 promises[socket.id] && promises[socket.id].resolve(data.resp);
-                worker.free = true;
+                worker.points += 1;
                 emitFreeTask(worker);
             });
 
@@ -74,7 +74,6 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
     function onClientError(worker, socket, data) {
         log.error('client ', socket.id, ', task ', data.id, ', reports error:', data.resp);
         promises[socket.id] && promises[socket.id].reject(data.resp);
-        worker.free = true;
         emitFreeTask(worker);
     }
 
@@ -103,16 +102,18 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
     }
 
     function emitFreeTask(worker) {
-        if (tasks.length > 0) {
-            var task = tasks.pop();
-            promises[worker.id] = task.deferred;
-            worker.socket.emit(
-                'task', {
-                    id: newUniqueTaskId(worker.id),
-                    task: task.task
-                }
-            );
+        worker.free = true;
+        if (_.isEmpty(tasks)) {
+            return;
         }
+        var task = tasks.pop();
+        promises[worker.id] = task.deferred;
+        worker.socket.emit(
+            'task', {
+                id: newUniqueTaskId(worker.id),
+                task: task.task
+            }
+        );
     }
 
     // maybe better hashing algorithm than

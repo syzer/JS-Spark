@@ -18,6 +18,7 @@ module.exports = function workersService(log, _) {
         var worker = {
             socket: socket,
             free: true,
+            points: 0,
             id: socket.id
         };
         workers.push(worker);
@@ -50,22 +51,25 @@ module.exports = function workersService(log, _) {
     //            _events: [Object]
     //          },
     //        free: false,
+    //        points: 4,
     //        id: 'haQJ-zLwkTFof2RVAAAB' },
     function get() {
         return _(workers)
-            .map(function(worker) {
-                return {
-                    id: worker.id,
-                    lastConnectedAt: worker.socket.connectedAt,
-                    connected: worker.socket.connected,
-                    handshake: worker.socket.handshake,
-                    free: worker.free,
-                    rooms: worker.socket.rooms,
-                    points: worker.points,
-                    benchmark: worker.benchmark
-                }
-            })
+            .map(extractImportantWorkerInfo)
             .value();
+    }
+
+    function extractImportantWorkerInfo(worker) {
+        return {
+            id: worker.id,
+            connectedAt: worker.socket.connectedAt,
+            connected: worker.socket.connected,
+            handshake: worker.socket.handshake,
+            free: worker.free,
+            rooms: worker.socket.rooms,
+            points: worker.points,
+            benchmark: worker.benchmark
+        }
     }
 
     // + getFirstFree::array -> object
@@ -75,7 +79,7 @@ module.exports = function workersService(log, _) {
 
     //TODO getBest
     function getFreeWorkers() {
-        return workers.filter(function(worker) {
+        return workers.filter(function (worker) {
             return worker.free;
         });
     }
