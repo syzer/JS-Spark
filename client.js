@@ -2,7 +2,7 @@
  * Created by syzer on 7/24/2014.
  */
 var io = require('socket.io-client'),
-    ioClient = io.connect('http://localhost:8000'),
+    ioClient = io.connect('http://localhost:8080'),
     _ = require('lodash');
 
 //TODO split task and parse serialization errors
