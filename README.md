@@ -44,7 +44,7 @@ How(Getting started)
 ====================
 Prerequisites, install Node.js, then:
 
-        git@github.com:syzer/JS-Spark.git && cd $_
+        git clone git@github.com:syzer/JS-Spark.git && cd $_
         npm install
         node server
         node client
