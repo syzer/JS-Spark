@@ -24,14 +24,14 @@ Possibilities are endless:
 --------------------------
 No need to setup expensive cluster. The setup takes 5 min and you are good to go. You can do it on one machine. Even on Raspberry Pi
 
-* Use as CDN ... Today most websites runs slower with more clients use them.
-But using JSpark you can totally reverse this trend. Build websites that run FASTER the more people use them
-
 * Use as ML tool may process in real time huge streams of data... while all clients still browse their favorite websites
 
 * Use as Big data analytics. Connect to Hadoop HDFS and process even terabytes of data.
 
 * Use to safely transfer huge amount of data to remote computers.
+
+* Use as CDN ... Today most websites runs slower with more clients use them.
+But using JSpark you can totally reverse this trend. Build websites that run FASTER the more people use them
 
 * Synchronize data between multiple smart phones.. even in Africa
 
@@ -44,6 +44,7 @@ How(Getting started)
 ====================
 Prerequisites, install Node.js, then:
 
+        git@github.com:syzer/JS-Spark.git && cd $_
         npm install
         node server
         node client
