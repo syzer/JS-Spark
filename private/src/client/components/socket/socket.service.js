@@ -92,6 +92,7 @@ angular.module('jsSparkUiApp')
             syncUpdates: function (modelName, array, cb) {
                 cb = cb || angular.noop;
 
+                //TODO use _.merge
                 /**
                  * Syncs item creation/updates on 'model:save'
                  */

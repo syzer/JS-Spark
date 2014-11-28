@@ -1,6 +1,5 @@
 /**
- * TODO task give task statistics
- * TODO give clients statistics
+ * TODO
  */
 module.exports = function taskManagerService(config, log, dispatcher, workersService, defer, promise, _) {
 

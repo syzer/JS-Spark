@@ -42,12 +42,13 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
                 log.info('task id', data.id);
                 log.info('data', data.resp);
                 promises[socket.id] && promises[socket.id].resolve(data.resp);
-                worker.points += 1;
+                workers.free(worker, 1);
                 emitFreeTask(worker);
             });
 
             // drop dead clients
             socket.on('disconnect', function () {
+                workers.free(worker, -1);       // penalty
                 workers.remove(worker);
                 promises[socket.id] && promises[socket.id].reject('Client disconnected');
             });
@@ -64,7 +65,7 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
         ioServer.on('connection', handleMessage);
     }
 
-    // its getting java-ish
+    // JS-Spark UI handlers, its getting java-ish
     function registerApplicationHandlers(socket) {
         uiApplicationModels.forEach(function (model) {
             model.register(socket);
@@ -74,6 +75,7 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
     function onClientError(worker, socket, data) {
         log.error('client ', socket.id, ', task ', data.id, ', reports error:', data.resp);
         promises[socket.id] && promises[socket.id].reject(data.resp);
+        workers.free(worker, -1);       // penalty
         emitFreeTask(worker);
     }
 
@@ -102,12 +104,12 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
     }
 
     function emitFreeTask(worker) {
-        worker.free = true;
         if (_.isEmpty(tasks)) {
             return;
         }
         var task = tasks.pop();
         promises[worker.id] = task.deferred;
+        workers.busy(worker);
         worker.socket.emit(
             'task', {
                 id: newUniqueTaskId(worker.id),
@@ -135,6 +137,7 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
         }
     }
 
+    // TODO add different strategies
     function addTask(task, deferred) {
         tasks.push(newTask(task, '', deferred));
 

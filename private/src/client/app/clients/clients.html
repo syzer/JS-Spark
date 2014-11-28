@@ -21,7 +21,7 @@
         <tbody>
         <tr class="animate-repeat" ng-repeat="client in clients" ng-class="{'success':client.free, 'info':!client.free}">
             <td>{{$index+1}}</td>
-            <td><strong>{{client.id}}</strong></td>
+            <td><strong>{{client._id}}</strong></td>
             <td><span class="text-muted">{{client.email}}</span></td>
             <td>{{client.handshake.address}}</td>
             <td>{{client.free|boolean}}</td>

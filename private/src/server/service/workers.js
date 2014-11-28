@@ -1,27 +1,34 @@
 /**
  * Created by syzer on 7/24/2014.
+ * workersSocket - utilized for observing changes in workers
  */
 module.exports = function workersService(log, _) {
     'use strict';
 
     var workers = [];
+    var listeners = [];
 
     return {
         create: create,
         getFreeWorkers: getFreeWorkers,
         remove: remove,
         get: get,
-        getFirstFree: getFirstFree
+        getFirstFree: getFirstFree,
+        busy: busy,
+        free: free,
+        addListener: addListener
     };
 
+    //TODO notify change
     function create(socket) {
         var worker = {
             socket: socket,
             free: true,
             points: 0,
-            id: socket.id
+            _id: socket.id
         };
         workers.push(worker);
+        notifyThat('client:save', worker);
 
         return worker;
     }
@@ -32,6 +39,7 @@ module.exports = function workersService(log, _) {
             log.info('RIP client', workers[index].socket.id);
             workers.splice(index, 1);
         }
+        notifyThat('client:remove', worker);
     }
 
     //        { socket:
@@ -61,7 +69,7 @@ module.exports = function workersService(log, _) {
 
     function extractImportantWorkerInfo(worker) {
         return {
-            id: worker.id,
+            _id: worker._id,
             connectedAt: worker.socket.connectedAt,
             connected: worker.socket.connected,
             handshake: worker.socket.handshake,
@@ -82,6 +90,32 @@ module.exports = function workersService(log, _) {
         return workers.filter(function (worker) {
             return worker.free;
         });
+    }
+
+    // maybe make a worker class
+    // free worker from busy state
+    function free(worker, points) {
+        points = points || 0;
+        worker.free = true;
+        worker.points += points;
+        notifyThat('client:save', worker);
+    }
+
+    function busy(worker) {
+        worker.free = false;
+        notifyThat('client:save', worker);
+    }
+
+    //TODO maybe room broadcast
+    function notifyThat(action, actor) {
+        actor = extractImportantWorkerInfo(actor);
+        listeners.forEach(function(listener){
+            listener.emit(action, actor);
+        });
+    }
+
+    function addListener(socket) {
+        listeners.push(socket);
     }
 
 };

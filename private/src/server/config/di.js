@@ -113,7 +113,10 @@ var services = {
     },
     'service.uiApplicationModels': function addService(di) {
         return [
-            require(ROOT_PATH + 'api/thing/thing.socket')
+            require(ROOT_PATH + 'api/thing/thing.socket'),
+            require(ROOT_PATH + 'api/client/client.socket')(
+                di.get('service.workers')
+            )
             // Insert OTHER sockets below
             ]
     },

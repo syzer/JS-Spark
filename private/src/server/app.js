@@ -29,7 +29,6 @@ var di = require(ROOT + 'controller/di')(
 var app = di.get('app');
 var server = di.get('server');
 var socketio = di.get('io.server');
-require('./config/socketio')(socketio);
 require('./config/express')(app);
 require('./routes')(app, di);
 
@@ -44,7 +43,7 @@ exports = module.exports = app;
 var _ = di.get('_');
 var jsSpark = di.get('service.jsSpark');
 
-setTimeout(
+setInterval(
     function delayedTask() {
         console.log('Sending task to calculate');
         jsSpark(_.range(1000))

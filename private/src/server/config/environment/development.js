@@ -12,5 +12,6 @@ module.exports = {
         }
     },
 
-    seedDB: true
+    //seedDB: true
+    seedDB: false
 };
