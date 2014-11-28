@@ -9,6 +9,11 @@ as distributed version of them.
 If you know Distributed-RPC systems like [storm](https://storm.incubator.apache.org/documentation/Distributed-RPC.html)
 you will feel like home.
 
+![main page](https://raw.github.com/syzer/JS-Spark/master/public/docs/JS-Spark-main-page.png)
+![computing que](https://raw.github.com/syzer/JS-Spark/master/public/docs/JS-Spark-computing-que-view.png)
+
+
+
 Why
 ===
 Hadoop is quite slow and requires maintaining cluster - we want to do better. Imagine that there's no need to setup expansive cluster/cloud solutions. Use webrowsers! Easily scale to multiple clients. Clients do not need to install anything like Java or other plugins.
