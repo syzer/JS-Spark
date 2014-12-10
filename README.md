@@ -21,9 +21,11 @@ Why
 ===
 There are no JS tools that can offload your processing to 1000+ CPU.
 Furthermore exiting tools in other languages, such as Seti@Home, Gearman, requires time expensive setup of server and later setting up/supervising on clients machines. 
-**We want to do better** JS-Spak on your clients need just to click on a **URL**, and on a server side has one line installation(less than 5 min).
 
-Hadoop is quite slow and requires maintaining cluster - **we can to do better**. Imagine that there's no need to setup expansive cluster/cloud solutions. Use webrowsers! Easily scale to multiple clients. Clients do not need to install anything like Java or other plugins.
+**We want to do better** on JS-Spark your clients need just to click on a **URL**, and on a server side has one line installation (less than 5 min).
+
+Hadoop is quite slow and requires maintaining cluster - **we can to do better**. Imagine that there's no need to setup expansive cluster/cloud solutions. 
+Use webrowsers! Easily scale to multiple clients. Clients do not need to install anything like Java or other plugins.
 
 Setup in mater of minutes and you are good to go.
 
