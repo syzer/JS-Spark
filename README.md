@@ -1,13 +1,16 @@
 What is JS-Spark
 ====
-Distributed real time analytics using JavaScript.
+Distributed real time computation/job/work que using JavaScript.
 JavaScript re imagine of fabulous Apache Spark and Storm projects.
 
-If you know `underscore.js` or [`lodash.js`](https://lodash.com/) you may think of JS-Spark
+If you know `underscore.js` or [`lodash.js`](https://lodash.com/) you may use of JS-Spark
 as distributed version of them.
 
 If you know Distributed-RPC systems like [storm](https://storm.incubator.apache.org/documentation/Distributed-RPC.html)
 you will feel like home.
+
+If you ever worked with distributed work que such as Celery, 
+you will find JS-Spark easy to use.
 
 ![main page](https://raw.github.com/syzer/JS-Spark/master/public/docs/JS-Spark-main-page.png)
 ![computing que](https://raw.github.com/syzer/JS-Spark/master/public/docs/JS-Spark-computing-que-view.png)
@@ -16,7 +19,11 @@ you will feel like home.
 
 Why
 ===
-Hadoop is quite slow and requires maintaining cluster - we want to do better. Imagine that there's no need to setup expansive cluster/cloud solutions. Use webrowsers! Easily scale to multiple clients. Clients do not need to install anything like Java or other plugins.
+There are no JS tools that can offload your processing to 1000+ CPU.
+Furthermore exiting tools in other languages, such as Seti@Home, Gearman, requires time expensive setup of server and later setting up/supervising on clients machines. 
+**We want to do better** JS-Spak on your clients need just to click on a **URL**, and on a server side has one line installation(less than 5 min).
+
+Hadoop is quite slow and requires maintaining cluster - **we can to do better**. Imagine that there's no need to setup expansive cluster/cloud solutions. Use webrowsers! Easily scale to multiple clients. Clients do not need to install anything like Java or other plugins.
 
 Setup in mater of minutes and you are good to go.
 
