@@ -1,5 +1,5 @@
 {
-  "name": "js-spark-core",
+  "name": "js-spark",
   "description": "Distributed calculation / data processing system. Run computation/jobs on 1000+ cores",
   "author": "syzer <syzer3@gmail.com>",
   "version": "0.2.5",
