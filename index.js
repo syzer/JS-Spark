@@ -38,14 +38,14 @@ task = jsSpark(_.range(10))
     .reduce(function sumUp(arr, el) {
         return arr + el;
     })
-    .createTask();
+    .run();
 
 // client side heavy CPU computation
 task2 = jsSpark([20])
     .map(function addOne(num) {
         return num + 1;
     })
-    .createTask();
+    .run();
 
 task3 = task
     .then(function serverSideComputingOfData(data) {
@@ -67,7 +67,7 @@ setTimeout(
             .reduce(function sumUp(sum, num) {
                 return sum + num;
             })
-            .createTask()
+            .run()
             .then(function (data) {
                 console.log('Total sum of 1 to 1000 odd numbers is:', data);
             });
@@ -86,7 +86,7 @@ doElections = jsSpark(_.range(10))
         return sum + num;
     })
     // how many times repeat calculations
-    .createTask({times: 3})
+    .run({times: 3})
     .then(function whenClientsFinished(data) {
         // may also get 2 most relevant answers
         console.log('Most clients believe that:');

@@ -7,9 +7,6 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
     // maybe merge with tasks
     var promises = [];
 
-    // timer for digest cycle
-    var timerId;
-
     return {
         start: start,
         addTask: addTask,
@@ -98,9 +95,14 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
         socket.connectedAt = new Date();
     }
 
+    // this will eventually time out all clients
+    // may also iterate thu clients list and shutdown them immediately
     function stop() {
-        log.info('dispatching stopped @' + new Date());
-        clearInterval(timerId);
+        var stopDate = new Date();
+        log.info('dispatching stopped @' + stopDate);
+        ioServer.close();
+
+        return stopDate;
     }
 
     function emitFreeTask(worker) {

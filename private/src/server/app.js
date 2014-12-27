@@ -53,7 +53,7 @@ setInterval(
             .reduce(function sumUp(sum, num) {
                 return sum + num;
             })
-            .createTask()
+            .run()
             .then(function (data) {
                 console.log('Total sum of 1 to 1000 odd numbers is:', data);
             });

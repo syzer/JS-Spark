@@ -6,7 +6,8 @@ module.exports = function taskManagerService(config, log, dispatcher, workersSer
     return {
         init: init,
         addTask: addTask,
-        getWorkers: workersService.get
+        getWorkers: workersService.get,
+        stop: dispatcher.stop
     };
 
     // public methods

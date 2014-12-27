@@ -55,7 +55,7 @@ Prerequisites, install Node.js, then:
 
         git clone git@github.com:syzer/JS-Spark.git && cd $_
         npm install
-        node server
+        node index
         node client
         
 Start on your machine and see how the clients do all calculation.
@@ -87,7 +87,7 @@ task = jsSpark([20, 30, 40, 50])
     .reduce(function sumUp(sum, num) {
         return sum + num;
     })
-    .createTask();
+    .run();
 ```
 
 Distributed version of lodash/underscore 
@@ -109,7 +109,7 @@ jsSpark(_.range(10))
     .reduce(function sumUp(arr, el) {
         return arr + el;
     })
-    .createTask();
+    .run();
 ```
 
 
@@ -122,7 +122,7 @@ jsSpark(_.range(10))
         return sum + num;
     })
     // how many times repeat calculations
-    .createTask({times: 6})
+    .run({times: 6})
     .then(function whenClientsFinished(data) {
         // may also get 2 most relevant answers
         console.log('Most clients believe that:');
@@ -172,3 +172,7 @@ default connection parameters:
 
 * on first run need to seed the db: change option `seedDB: false` => `seedDB: true`
 on `./private/srv/server/config/environment/development.js`
+
+Tests
+=====
+`mocha private/test/ --recursive --require private/test/bootstrap.js`

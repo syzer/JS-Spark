@@ -55,14 +55,14 @@ module.exports = function jsSParkService(taskManager, _) {
                 return this;
             },
 
-            createTask: createTask
+            run: run
         };
 
         // TODO move forEach to reduce?
         // TODO args = options{timeout,...}
         // factory method
         // :: object -> deferred
-        function createTask(taskConfig) {
+        function run(taskConfig) {
             var task = {
 
                 operations: operations,
