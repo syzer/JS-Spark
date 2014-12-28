@@ -110,11 +110,11 @@ module.exports = function dispatcherService(log, ioServer, serializer, _, worker
             return;
         }
         var task = tasks.pop();
-        promises[worker.id] = task.deferred;
+        promises[worker._id] = task.deferred;
         workers.busy(worker);
         worker.socket.emit(
             'task', {
-                id: newUniqueTaskId(worker.id),
+                id: newUniqueTaskId(worker._id),
                 task: task.task
             }
         );

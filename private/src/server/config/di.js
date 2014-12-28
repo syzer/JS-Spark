@@ -88,6 +88,18 @@ var services = {
             di.get('service.uiApplicationModels')
         );
     },
+    'service.fork': function addService(di) {
+        var exec = di
+            .get('promise')
+            .promisify(require('child_process').exec);
+
+        return require(ROOT_PATH + 'service/fork')(
+            di.get('log'),
+            exec,
+            di.get('_'),
+            di.get('promise')
+        );
+    },
     'service.jsSpark': function addService(di) {
         return require(ROOT_PATH + 'service/jsSpark')(
             di.get('service.taskManager')

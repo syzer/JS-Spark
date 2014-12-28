@@ -16,10 +16,24 @@ var di = require(ROOT + 'controller/di')(services);
 // start listening on given port
 di.get('server').listen(di.get('port'));
 
+
+jsSpark = di.get('service.jsSpark');
+
 // lodash
 _ = di.get('_');
 
-jsSpark = di.get('service.jsSpark');
+module.exports = function (config) {
+    config = config || {};
+
+    if (config.workers) {
+        di.get('service.fork').forkWorker({times: config.workers});
+    }
+
+    return {
+        di: di,
+        jsSpark: jsSpark
+    }
+};
 
 var task, task2, task3, doElections;
 
@@ -69,7 +83,11 @@ setTimeout(
             })
             .run()
             .then(function (data) {
+                throw 'koputko';
                 console.log('Total sum of 1 to 1000 odd numbers is:', data);
+            })
+            .catch(function (reason) {
+                console.log('Task could not compute ' + reason.toString());
             });
     }, 5000
 );
@@ -93,5 +111,5 @@ doElections = jsSpark(_.range(10))
         console.log('Total sum of numbers from 1 to 10 is:', data);
     })
     .catch(function whenClientsArgue(reason) {
-        console.log('Most clients could not agree, ', + reason.toString());
+        console.log('Most clients could not agree, ', +reason.toString());
     });
