@@ -118,6 +118,8 @@ var services = {
             di.get('service.workers'),
             di.get('defer'),
             di.get('promise'),
+            di.get('server'),
+            di.get('port'),
             di.get('_')
         );
         taskManager.init();

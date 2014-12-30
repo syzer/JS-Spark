@@ -5,6 +5,7 @@
 'use strict';
 
 var jsSpark,
+    taskManager,
     _;
 
 var ROOT = './private/src/server/';
@@ -13,14 +14,16 @@ var services = require(ROOT + 'config/di').services;
 
 // setup Dependencies
 var di = require(ROOT + 'controller/di')(services);
-// start listening on given port
-di.get('server').listen(di.get('port'));
 
+// start listening on given port
+//di.get('server').listen(di.get('port'));
 
 jsSpark = di.get('service.jsSpark');
 
 // lodash
 _ = di.get('_');
+
+taskManager = di.get('service.taskManager');
 
 module.exports = function (config) {
     config = config || {};
@@ -31,7 +34,8 @@ module.exports = function (config) {
 
     return {
         di: di,
-        jsSpark: jsSpark
+        jsSpark: jsSpark,
+        taskManager: taskManager
     }
 };
 
@@ -72,31 +76,10 @@ task3 = task
         console.log('Task could not compute ' + reason.toString());
     });
 
-setTimeout(
-    function delayedTask() {
-        jsSpark(_.range(1000))
-            .filter(function isOdd(num) {
-                return num % 2;
-            })
-            .reduce(function sumUp(sum, num) {
-                return sum + num;
-            })
-            .run()
-            .then(function (data) {
-                throw 'koputko';
-                console.log('Total sum of 1 to 1000 odd numbers is:', data);
-            })
-            .catch(function (reason) {
-                console.log('Task could not compute ' + reason.toString());
-            });
-    }, 5000
-);
-
 di.get('promise')
     .all([task, task2, task3])
     .then(function (data) {
         console.log('Tasks 1 to 3 done', data);
-        di.get('service.dispatcher').stop();
     });
 
 doElections = jsSpark(_.range(10))
@@ -111,5 +94,24 @@ doElections = jsSpark(_.range(10))
         console.log('Total sum of numbers from 1 to 10 is:', data);
     })
     .catch(function whenClientsArgue(reason) {
-        console.log('Most clients could not agree, ', +reason.toString());
+        console.log('Most clients could not agree, ', + reason.toString());
     });
+
+setTimeout(
+    function delayedTask() {
+        jsSpark(_.range(1000))
+            .filter(function isOdd(num) {
+                return num % 2;
+            })
+            .reduce(function sumUp(sum, num) {
+                return sum + num;
+            })
+            .run()
+            .then(function (data) {
+                console.log('Total sum of 1 to 1000 odd numbers is:', data);
+            })
+            .catch(function (reason) {
+                console.log('Task could not compute ' + reason.toString());
+            });
+    }, 5000
+);

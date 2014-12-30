@@ -1,7 +1,7 @@
 module.exports = function jsSParkService(taskManager, _) {
 
     // is a monad
-    return function jsSpark (data) {
+    return function jsSpark(data) {
 
         var operations = [],
             array = data;
@@ -55,7 +55,9 @@ module.exports = function jsSParkService(taskManager, _) {
                 return this;
             },
 
-            run: run
+            run: run,
+
+            stop: taskManager.stop
         };
 
         // TODO move forEach to reduce?

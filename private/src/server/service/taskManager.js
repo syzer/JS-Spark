@@ -1,18 +1,29 @@
 /**
  * TODO
  */
-module.exports = function taskManagerService(config, log, dispatcher, workersService, defer, promise, _) {
+module.exports = function taskManagerService(config, log, dispatcher, workersService, defer, promise, server, port, _) {
 
     return {
         init: init,
         addTask: addTask,
         getWorkers: workersService.get,
-        stop: dispatcher.stop
+        stop: stop
     };
 
+    function stop() {
+        var stopDate = new Date();
+        server.close();
+        log.info('server stopped @ ' + stopDate);
+
+        //dispatcher.stop(); // is closed by server
+        return stopDate;
+    }
+
+    // TODO start server(if not started)
     // public methods
     function init() {
         dispatcher.start();
+        server.listen(port);
     }
 
     function addTask(task, taskConfig) {
