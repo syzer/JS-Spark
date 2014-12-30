@@ -21,13 +21,7 @@ describe('Forks new workers', function () {
         forkService = di.get('service.fork');
         var promise = forkService.forkWorker({times: 2});
         expect(promise.then).to.be.a('function');
-        //promise.then(function (data) {
-        //    console.log('\n\n\n', data);
-        //    expect(true).to.be(true);
-        //    done();
-        //}).catch(function(err){
-        //    done(err);
-        //});
+
         done();
     });
 

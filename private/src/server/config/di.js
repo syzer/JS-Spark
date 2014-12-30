@@ -89,13 +89,13 @@ var services = {
         );
     },
     'service.fork': function addService(di) {
-        var exec = di
+        var fork = di
             .get('promise')
-            .promisify(require('child_process').exec);
+            .promisify(require('child_process').fork);
 
         return require(ROOT_PATH + 'service/fork')(
             di.get('log'),
-            exec,
+            fork,
             di.get('_'),
             di.get('promise')
         );
