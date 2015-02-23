@@ -36,6 +36,7 @@
         "winston": "^0.8.0"
     },
     "devDependencies": {
+        "bower": "~1.3.12",
         "grunt": "~0.4.4",
         "grunt-autoprefixer": "~0.7.2",
         "grunt-bower-install": "~1.4.0",
@@ -95,6 +96,7 @@
     },
     "scripts": {
         "start": "node index & node client & node client",
-        "test": "mocha private/test/ --recursive --require private/test/bootstrap.js"
+        "test": "mocha private/test/ --recursive --require private/test/bootstrap.js",
+        "postinstall": "bower install"
     }
 }
