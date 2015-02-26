@@ -55,7 +55,7 @@ Prerequisites, install Node.js, then:
 
         git clone git@github.com:syzer/JS-Spark.git && cd $_
         npm install
-        node index
+        node index & 
         node client
         
 Start on your machine and see how the clients do all calculation.
