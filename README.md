@@ -167,7 +167,19 @@ Required to run UI
 default connection parameters:
 
 * mongodb://localhost/jssparkui-dev user: 'js-spark', pass: 'js-spark1'
-
+install mongo, make sure mongod(mongo service) is running
+run mongo shell with command
+```js
+mongo
+use jssparkui-dev
+db.addUser({ 
+  user: "js-spark",
+  pwd: "js-spark1",
+  roles: [
+    { role: "readWrite", db: "jssparkui-dev" }
+  ]
+})
+```
 * to run without UI db code is not required!
 
 * on first run need to seed the db: change option `seedDB: false` => `seedDB: true`
