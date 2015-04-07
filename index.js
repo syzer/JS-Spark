@@ -34,7 +34,8 @@ module.exports = function (config) {
     return {
         di: di,
         jsSpark: jsSpark,
-        taskManager: taskManager
+        taskManager: taskManager,
+        q: di.get('promise')
     }
 };
 
