@@ -1,6 +1,5 @@
 /**
  * Created by syzer on 7/24/2014.
- * Its just a Proof of Concept
  */
 'use strict';
 
@@ -38,6 +37,10 @@ module.exports = function (config) {
         taskManager: taskManager
     }
 };
+
+// TODO move to examples
+/**
+module.exports({workers:2});
 
 var task, task2, task3, doElections;
 
@@ -94,7 +97,7 @@ doElections = jsSpark(_.range(10))
         console.log('Total sum of numbers from 1 to 10 is:', data);
     })
     .catch(function whenClientsArgue(reason) {
-        console.log('Most clients could not agree, ', + reason.toString());
+        console.log('Most clients could not agree, ', +reason.toString());
     });
 
 setTimeout(
@@ -115,3 +118,4 @@ setTimeout(
             });
     }, 5000
 );
+*/

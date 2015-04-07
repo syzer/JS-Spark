@@ -2,6 +2,10 @@
  * Created by syzer on 5/15/2014.
  */
 'use strict';
+
+// for npm main path
+var MAIN_PATH = __dirname + '/../../../../';
+// for UI/app
 var ROOT_PATH = __dirname + '/../';
 var DATA_PATH = ROOT_PATH + '../../data/';
 var PROD_SETTINGS = 'production';
@@ -37,7 +41,7 @@ var services = {
     compression: require('compression')(),
     connect: require('connect'),
     config: function addService(di) {
-        var config = require(ROOT_PATH + 'config/config')(ROOT_PATH, DATA_PATH);
+        var config = require(ROOT_PATH + 'config/config')(ROOT_PATH, DATA_PATH, MAIN_PATH);
         // use adapter
         if (process.env.NODE_ENV === PROD_SETTINGS) {
             console.log('Running in production\n');
@@ -97,7 +101,9 @@ var services = {
             di.get('log'),
             fork,
             di.get('_'),
-            di.get('promise')
+            di.get('promise'),
+            // TODO client.js->bower
+            MAIN_PATH + 'client.js'
         );
     },
     'service.jsSpark': function addService(di) {
