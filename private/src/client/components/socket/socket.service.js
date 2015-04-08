@@ -28,7 +28,7 @@ module.exports = function (_) {
                 ioClient.emit('response',
                     {id: receivedTask.id, resp: response}
                 );
-                console.log('Client response', response);
+                //console.log('Client response', response);
             } catch (error) {
                 console.error('Error:', error.stack);
                 if ('SyntaxError' === error.name) {

@@ -50,8 +50,11 @@ But using JSpark you can totally reverse this trend. Build websites that run FAS
 
 How(Getting started with npm)
 =============================
+To add a distributed job cue to anny node app simply:
+
         npm i --save js-spark
-        
+
+Look for **Usage with npm**.
 
 How(Getting started)
 ====================
@@ -59,12 +62,19 @@ Prerequisites: install `Node.js`, then:
 
         git clone git@github.com:syzer/JS-Spark.git && cd $_
         npm install
+        
+Then run:
+     
         node index & 
         node client
         
-Start on your machine and see how the clients do all calculation.
+Or:
+ 
+        npm start        
+        
+After that you may see how the clients do all calculation.
+and all heavy lifting.
 
-wait for clients to do all heavy lifting
 
 Running with UI
 ---------------
@@ -100,8 +110,8 @@ jsSpark([20, 30, 40, 50])
     })
 ```        
 
-Usage
-=====
+Usage(Examples)
+===============
 Client side heavy CPU computation(MapReduce)
 --------------------------------------------
 
@@ -116,6 +126,7 @@ task = jsSpark([20, 30, 40, 50])
     })
     .run();
 ```
+
 
 Distributed version of lodash/underscore 
 ----------------------------------------
@@ -142,6 +153,9 @@ jsSpark(_.range(10))
 
 Multiple retry and clients elections
 ------------------------------------
+If you run calculations via unknown clients is better to recalculate 
+same tasks on different clients:
+
 
 ```JavaScript
 jsSpark(_.range(10))

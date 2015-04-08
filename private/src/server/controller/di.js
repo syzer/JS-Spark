@@ -34,7 +34,7 @@ module.exports = function diController(initialServices) {
             // not sure if Function.name will be legal in next ECMA script
             if (('function' === typeof services[serviceName]) &&
                 ('addService' === services[serviceName].name)) {
-                console.log('function ', services[serviceName].name, serviceName);
+                //console.log('function ', services[serviceName].name, serviceName);
                 services[serviceName] = services[serviceName](this);
             }
             return services[serviceName];

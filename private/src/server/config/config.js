@@ -21,7 +21,8 @@ module.exports = function (ROOT_PATH, DATA_PATH, MAIN_PATH) {
                 file: (function () {
                     return DATA_PATH + '/log/error.log';
                 })()
-            }
+            },
+            level: 'warn'
         }
     }
 };
