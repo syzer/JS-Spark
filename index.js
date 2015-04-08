@@ -40,7 +40,7 @@ module.exports = function (config) {
 };
 
 // TODO move to examples
-///**
+/**
 //module.exports({workers:2});
 
 var task, task2, task3, doElections;
@@ -119,4 +119,4 @@ setTimeout(
             });
     }, 5000
 );
-//*/
+*/
