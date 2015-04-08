@@ -26,7 +26,7 @@ module.exports = function (_) {
                 task = JSON.parse(receivedTask.task, functionCreate);
                 response = task.execute(_, task.data).value();
                 ioClient.emit('response',
-                    {id: receivedTask.id, resp: response.toString()}
+                    {id: receivedTask.id, resp: response}
                 );
                 console.log('Client response', response);
             } catch (error) {

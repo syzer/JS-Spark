@@ -40,8 +40,8 @@ module.exports = function (config) {
 };
 
 // TODO move to examples
-/**
-module.exports({workers:2});
+///**
+//module.exports({workers:2});
 
 var task, task2, task3, doElections;
 
@@ -71,7 +71,7 @@ task2 = jsSpark([20])
 
 task3 = task
     .then(function serverSideComputingOfData(data) {
-        var basesNumber = data.split(',').map(Number)[0] + 21;
+        var basesNumber = data + 21;
         // All your 101 base are belong to us
         console.log('All your ' + basesNumber + ' base are belong to us');
         return basesNumber;
@@ -119,4 +119,4 @@ setTimeout(
             });
     }, 5000
 );
-*/
+//*/

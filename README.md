@@ -48,10 +48,14 @@ But using JSpark you can totally reverse this trend. Build websites that run FAS
 
 * Free to use.
 
+How(Getting started with npm)
+=============================
+        npm i --save js-spark
+        
 
 How(Getting started)
 ====================
-Prerequisites, install Node.js, then:
+Prerequisites: install `Node.js`, then:
 
         git clone git@github.com:syzer/JS-Spark.git && cd $_
         npm install
@@ -62,8 +66,9 @@ Start on your machine and see how the clients do all calculation.
 
 wait for clients to do all heavy lifting
 
-Now featuring a new, improved UI
---------------------------------
+Running with UI
+---------------
+        git clone git@github.com:syzer/JS-Spark.git && cd $_
         npm install
         grunt build
         grunt serve
@@ -71,7 +76,29 @@ Now featuring a new, improved UI
 To spam more light-weight clients:        
         
         node client
+
         
+Usage with npm
+==============
+
+```js
+var core = require('jsSpark')({workers:8});
+var jsSpark = core.jsSpark;
+
+jsSpark([20, 30, 40, 50])
+    // this is executed on client side
+    .map(function addOne(num) {
+        return num + 1;
+    })
+    .reduce(function sumUp(sum, num) {
+        return sum + num;
+    })
+    .run()
+    .then(function(data) {
+        // this is executed on back on server
+        console.log(data);
+    })
+```        
 
 Usage
 =====
@@ -140,7 +167,7 @@ Combined usage with server side processing
 ```JavaScript
 task3 = task
     .then(function serverSideComputingOfData(data) {
-        var basesNumber = data.split(',').map(Number)[0] + 21;
+        var basesNumber = data + 21;
         // All your 101 base are belong to us
         console.log('All your ' + basesNumber + ' base are belong to us');
         return basesNumber;
@@ -192,27 +219,5 @@ Tests
 
 TODO
 ====
-
-usage with npm
-
-
-```js
-var core = require('jsSpark')({workers:8});
-var jsSpark = core.jsSpark;
-
-
-jsSpark([20, 30, 40, 50])
-    // this is executed on client side
-    .map(function addOne(num) {
-        return num + 1;
-    })
-    .reduce(function sumUp(sum, num) {
-        return sum + num;
-    })
-    .run()
-    .then(function(data){
-    // this is executed on back on server
-    console.log(data);
-    })
-
-```
+[ ] more examples
+[ ] example with cli usage (not daemon)
