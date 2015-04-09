@@ -2,7 +2,7 @@
     "name": "js-spark",
     "description": "Distributed calculation / data processing system. Run computation/jobs on 1000+ cores",
     "author": "syzer <syzer3@gmail.com>",
-    "version": "0.4.1",
+    "version": "0.5.0",
     "dependencies": {
         "bluebird": "latest",
         "body-parser": "^1.5.0",

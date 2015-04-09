@@ -248,4 +248,9 @@ Tests
 TODO
 ====
 [ ] more examples
-[ ] example with cli usage (not daemon)
+
+[X] example with cli usage (not daemon)
+
+[ ] example with using thu
+
+[ ] add is broken... maybe fix or remove

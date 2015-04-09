@@ -84,7 +84,7 @@ module.exports = function jsSParkService(taskManager, _) {
                 execute: function (_, data) {
                     var chain = _.chain(data);
                     this.operations.forEach(function (operation, i) {
-                        chain = operation.chaining(chain, operation.callback, _);
+                        chain = operation.chaining(chain, operation.callback.bind(_), _);
                     });
 
                     return chain;
