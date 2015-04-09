@@ -110,6 +110,20 @@ jsSpark([20, 30, 40, 50])
     })
 ```        
 
+Example NLP
+===========
+This example shows how to use one of the Natural Language Processing tools called N-Gram
+in distributed manner using jsSpark:
+
+
+[Distributed-N-Gram](https://github.com/syzer/distributedNgram)
+
+
+To if you like to know more about the N-grams please read: 
+
+[http://en.wikipedia.org/wiki/N-gram](http://en.wikipedia.org/wiki/N-gram) 
+
+
 Usage(Examples)
 ===============
 Client side heavy CPU computation(MapReduce)

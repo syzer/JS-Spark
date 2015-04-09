@@ -2,7 +2,7 @@
     "name": "js-spark",
     "description": "Distributed calculation / data processing system. Run computation/jobs on 1000+ cores",
     "author": "syzer <syzer3@gmail.com>",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "dependencies": {
         "bluebird": "latest",
         "body-parser": "^1.5.0",
@@ -19,7 +19,7 @@
         "express-session": "^1.7.0",
         "jade": "0.20.0",
         "jsonwebtoken": "^1.1.2",
-        "lodash": "^2.4.1",
+        "lodash": "^3.6.0",
         "method-override": "^2.1.2",
         "mocha": "^1.21.4",
         "mongoose": "latest",

@@ -1,6 +1,7 @@
 module.exports = function jsSParkService(taskManager, _) {
 
     // is a monad
+    // TODO use newChainedMethod not to double code and change run()
     return function jsSpark(data) {
 
         var operations = [],
@@ -48,6 +49,17 @@ module.exports = function jsSParkService(taskManager, _) {
                 operations.push({
                     chaining: function (chain, callback) {
                         return chain.reduce(callback);
+                    },
+                    callback: callback
+                });
+
+                return this;
+            },
+
+            thru: function (callback) {
+                operations.push({
+                    chaining: function (chain, callback) {
+                        return chain.thru(callback);
                     },
                     callback: callback
                 });

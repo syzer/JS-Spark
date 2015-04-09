@@ -82,7 +82,7 @@ module.exports = function workersService(log, _) {
 
     // + getFirstFree::array -> object
     function getFirstFree() {
-        return _.first(workers, 'free')[0];
+        return _.findWhere(workers, { free: true });
     }
 
     //TODO getBest

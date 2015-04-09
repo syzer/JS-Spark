@@ -110,9 +110,12 @@ setTimeout(
             .reduce(function sumUp(sum, num) {
                 return sum + num;
             })
+            .thru(function plusOne(sum) {
+                return sum + 1;
+            })
             .run()
             .then(function (data) {
-                console.log('Total sum of 1 to 1000 odd numbers is:', data);
+                console.log('Total sum of 1 to 1000 odd numbers +1 is:', data);
             })
             .catch(function (reason) {
                 console.log('Task could not compute ' + reason.toString());

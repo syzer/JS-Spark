@@ -34,7 +34,7 @@
         "bootstrap": "~3.2.0",
         "es5-shim": "~4.0.3",
         "font-awesome": "~4.2.0",
-        "lodash": "~2.4.1"
+        "lodash": "~3.6.0"
     },
     "devDependencies": {
         "angular-mocks": ">=1.2.*",
