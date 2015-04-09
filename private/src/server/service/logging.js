@@ -6,17 +6,16 @@ module.exports = function logService(config, winston, newrelic) {
     'use strict';
 
     var fileName = config.log.error.file;
-    console.log('error log file name', fileName, config.log.level);
 
     var consoleLogConfig = {
         transports: [
-            new (winston.transports.Console)({ level: 'warn', colorize: true }),
+            new (winston.transports.Console)({ level: config.log.level, colorize: true }),
         ]
     };
 
     var productionLogConfig = {
         transports: [
-            new (winston.transports.Console)({ level: 'warn', colorize: true }),
+            new (winston.transports.Console)({ level: config.log.level, colorize: true }),
             new (winston.transports.File)({ filename: fileName, level: 'error' })
         ]
     };

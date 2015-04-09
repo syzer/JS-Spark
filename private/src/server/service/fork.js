@@ -15,7 +15,7 @@ module.exports = function forkService(log, fork, _, q, workerCode) {
 
         _.times(config.times, function () {
             // 'client.js'
-            todos.push(fork(workerCode));
+            todos.push(fork(workerCode, []));
         });
 
         return q.all(todos);
