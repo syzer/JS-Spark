@@ -59,9 +59,19 @@ Look for **Usage with npm**.
 How(Getting started)
 ====================
 Prerequisites: install `Node.js`, then:
+install grunt and bower,
 
-        git clone git@github.com:syzer/JS-Spark.git && cd $_
-        npm install
+```bash
+sudo npm install -g bower
+sudo npm install -g grunt
+```
+
+Install js-spark
+----------------
+```bash
+git clone git@github.com:syzer/JS-Spark.git && cd $_
+npm install
+```
         
 Then run:
      
@@ -72,8 +82,17 @@ Or:
  
         npm start        
         
-After that you may see how the clients do all calculation.
-and all heavy lifting.
+After that you may see how the clients do all calculation, and all heavy lifting.
+
+
+Example running multicore jobs in js:
+====================================
+[example-js-spark-usage](https://github.com/syzer/example-js-spark-usage)
+
+```bash
+git clone git@github.com:syzer/example-js-spark-usage.git && cd $_
+npm install
+```
 
 
 Running with UI
@@ -223,11 +242,12 @@ default connection parameters:
 
 * mongodb://localhost/jssparkui-dev user: 'js-spark', pass: 'js-spark1'
 install mongo, make sure mongod(mongo service) is running
-run mongo shell with command
+run mongo shell with command:
+
 ```js
 mongo
 use jssparkui-dev
-db.addUser({ 
+db.createUser({ 
   user: "js-spark",
   pwd: "js-spark1",
   roles: [
@@ -235,6 +255,7 @@ db.addUser({
   ]
 })
 ```
+* old mongodb engines can use `db.addUser()` with same API
 * to run without UI db code is not required!
 
 * on first run need to seed the db: change option `seedDB: false` => `seedDB: true`
