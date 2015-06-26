@@ -122,6 +122,9 @@ jsSpark([20, 30, 40, 50])
     .reduce(function sumUp(sum, num) {
         return sum + num;
     })
+    .thru(function addString(num){
+        return "It was a number but I will convert it to " + num; 
+    })
     .run()
     .then(function(data) {
         // this is executed on back on server
@@ -268,10 +271,15 @@ Tests
 
 TODO
 ====
-[ ] more examples
-
-[X] example with cli usage (not daemon)
-
-[ ] example with using thu
-
-[ ] add is broken... maybe fix or remove
+- [ ] remove
+- [ ] service/file
+- [ ] di -> separate module
+- [ ] bower for js-spark client
+- [ ] config-> merge diferent config files
+- [ ] server/auth -> do we need that?
+- [ ] server/api/jobs -> separate module?
+- [ ] split ui
+- [X] more examples
+- [X] example with cli usage (not daemon)
+- [X] example with using thu
+- [ ] add is broken... maybe fix or remove

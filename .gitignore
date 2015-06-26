@@ -8,4 +8,5 @@ npm-debug.log
 private/data/log/error.log
 .tmp/
 dist/
-testOfFunctionSerialization.js
+trash/testOfFunctionSerialization.js
+trash/

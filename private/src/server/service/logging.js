@@ -9,7 +9,7 @@ module.exports = function logService(config, winston, newrelic) {
 
     var consoleLogConfig = {
         transports: [
-            new (winston.transports.Console)({ level: config.log.level, colorize: true }),
+            new (winston.transports.Console)({ level: config.log.level, colorize: true })
         ]
     };
 
@@ -22,9 +22,7 @@ module.exports = function logService(config, winston, newrelic) {
 
     var createLog = function (fileName, configInjected) {
         var config = productionLogConfig || configInjected;
-        var log = new (winston.Logger)(config);
-
-        return log;
+        return new (winston.Logger)(config);
     };
 
     var createConsoleLog = function () {
