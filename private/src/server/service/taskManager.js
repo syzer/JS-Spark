@@ -67,8 +67,9 @@ module.exports = function taskManagerService(config, log, dispatcher, workersSer
             .sortBy(function (el) {
                 return -el.length;
             })
-            .map(_.first)
-            .first(2)
+            .map(function firstTwo(data) {
+                return [data[0], data[1]];
+            })
             .value();
     }
 
