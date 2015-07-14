@@ -2,7 +2,7 @@
     "name": "js-spark",
     "description": "Distributed calculation / data processing system. Run computation/jobs on 1000+ cores",
     "author": "syzer <syzer3@gmail.com>",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "dependencies": {
         "bluebird": "latest",
         "body-parser": "^1.5.0",
@@ -94,6 +94,17 @@
         "type": "git",
         "url": "http://github.com/syzer/JS-Spark"
     },
+    "keywords": [
+        "multicore",
+        "js-spark",
+        "spark",
+        "spark-js",
+        "computation",
+        "job",
+        "que",
+        "distributed",
+        "lodash"
+    ],
     "scripts": {
         "start": "node index & node client & node client",
         "test": "mocha private/test/ --recursive --require private/test/bootstrap.js",
