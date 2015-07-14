@@ -56,6 +56,37 @@ To add a distributed job cue to anny node app simply:
 
 Look for **Usage with npm**.
 
+Example running multicore jobs in js:
+====================================
+### Simple example node multicore jobs
+[example-js-spark-usage](https://github.com/syzer/example-js-spark-usage)
+
+```bash
+git clone git@github.com:syzer/example-js-spark-usage.git && cd $_
+npm install
+```
+
+### Game of life example
+[distributed-game-of-life](https://github.com/syzer/distributed-game-of-life.git)
+
+```bash
+git clone https://github.com/syzer/distributed-game-of-life.git && cd $_
+npm install
+```
+
+
+### Example NLP
+This example shows how to use one of the Natural Language Processing tools called N-Gram
+in distributed manner using jsSpark:
+
+[Distributed-N-Gram](https://github.com/syzer/distributedNgram)
+
+
+To if you like to know more about the N-grams please read: 
+
+[http://en.wikipedia.org/wiki/N-gram](http://en.wikipedia.org/wiki/N-gram) 
+
+
 How(Getting started)
 ====================
 Prerequisites: install `Node.js`, then:
@@ -69,6 +100,8 @@ sudo npm install -g grunt
 Install js-spark
 ----------------
 ```bash
+npm i --save js-spark
+#or use:
 git clone git@github.com:syzer/JS-Spark.git && cd $_
 npm install
 ```
@@ -84,33 +117,11 @@ Or:
         
 After that you may see how the clients do all calculation, and all heavy lifting.
 
-
-Example running multicore jobs in js:
-====================================
-[example-js-spark-usage](https://github.com/syzer/example-js-spark-usage)
-
-```bash
-git clone git@github.com:syzer/example-js-spark-usage.git && cd $_
-npm install
-```
-
-
-Running with UI
----------------
-        git clone git@github.com:syzer/JS-Spark.git && cd $_
-        npm install
-        grunt build
-        grunt serve
-
-To spam more light-weight clients:        
-        
-        node client
-
         
 Usage with npm
 ==============
 
-```js
+```JavaScript
 var core = require('jsSpark')({workers:8});
 var jsSpark = core.jsSpark;
 
@@ -131,20 +142,6 @@ jsSpark([20, 30, 40, 50])
         console.log(data);
     })
 ```        
-
-Example NLP
-===========
-This example shows how to use one of the Natural Language Processing tools called N-Gram
-in distributed manner using jsSpark:
-
-
-[Distributed-N-Gram](https://github.com/syzer/distributedNgram)
-
-
-To if you like to know more about the N-grams please read: 
-
-[http://en.wikipedia.org/wiki/N-gram](http://en.wikipedia.org/wiki/N-gram) 
-
 
 Usage(Examples)
 ===============
@@ -228,7 +225,6 @@ task3 = task
 ```
 
 
-
 More references
 ===============
 This project is about to reimplemented some nice things from the world of big data, so there are of course some nice
@@ -236,6 +232,20 @@ resources you can use to dive into the topic:
 
 * [Map-Reduce revisited](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.104.5859&rep=rep1&type=pdf)
 * [Awesome BigData - A curated list of awesome frameworks, resources and other things.](https://github.com/onurakpolat/awesome-bigdata)
+
+
+Running with UI
+===============
+
+        git clone git@github.com:syzer/JS-Spark.git && cd $_
+        npm install
+        grunt build
+        grunt serve
+
+To spam more light-weight (headless) clients:        
+        
+        node client
+
 
 
 Required to run UI
@@ -272,7 +282,7 @@ Tests
 TODO
 ====
 - [ ] remove
-- [ ] service/file
+- [ ] service/file -> removed for other module
 - [ ] di -> separate module
 - [ ] bower for js-spark client
 - [ ] config-> merge diferent config files
@@ -282,4 +292,4 @@ TODO
 - [X] more examples
 - [X] example with cli usage (not daemon)
 - [X] example with using thu
-- [ ] add is broken... maybe fix or remove
+- [ ] .add() is might be broken... maybe fix or remove
