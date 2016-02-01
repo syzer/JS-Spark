@@ -1,15 +1,15 @@
 What is JS-Spark
 ====
-Distributed real time computation/job/work que using JavaScript.
-JavaScript re imagine of fabulous Apache Spark and Storm projects.
+Distributed real time computation/job/work queue using JavaScript.
+A JavaScript reimagining of the fabulous Apache Spark and Storm projects.
 
-If you know `underscore.js` or [`lodash.js`](https://lodash.com/) you may use of JS-Spark
-as distributed version of them.
+If you know `underscore.js` or [`lodash.js`](https://lodash.com/) you may use JS-Spark
+as a distributed version of them.
 
 If you know Distributed-RPC systems like [storm](https://storm.incubator.apache.org/documentation/Distributed-RPC.html)
-you will feel like home.
+you will feel at home.
 
-If you ever worked with distributed work que such as Celery, 
+If you've ever worked with distributed work queues such as Celery, 
 you will find JS-Spark easy to use.
 
 ![main page](https://raw.github.com/syzer/JS-Spark/master/public/docs/JS-Spark-main-page.png)
@@ -19,46 +19,51 @@ you will find JS-Spark easy to use.
 
 Why
 ===
-There are no JS tools that can offload your processing to 1000+ CPU.
-Furthermore exiting tools in other languages, such as Seti@Home, Gearman, requires time expensive setup of server and later setting up/supervising on clients machines. 
+There are no JS tools that can offload your processing to 1000+ CPUs.
+Furthermore, existing tools in other languages, such as Seti@Home,
+Gearman, require time, expensive setup of server, and later setting up/supervising clients machines. 
 
-**We want to do better** on JS-Spark your clients need just to click on a **URL**, and on a server side has one line installation (less than 5 min).
+**We want to do better.**
+On JS-Spark your clients need just to click on a **URL**, and the server side has one line installation (less than 5 min).
 
-Hadoop is quite slow and requires maintaining cluster - **we can to do better**. Imagine that there's no need to setup expansive cluster/cloud solutions. 
-Use webrowsers! Easily scale to multiple clients. Clients do not need to install anything like Java or other plugins.
+Hadoop is quite slow and requires maintaining a cluster - **we can to do better**.
+Imagine that there's no need to set up expansive cluster/cloud solutions. 
+Use web browsers! Easily scale to multiple clients. Clients do not need to install anything like Java or other plugins.
 
-Setup in mater of minutes and you are good to go.
+Setup in a matter of minutes and you are good to go.
 
-Possibilities are endless:
+The possibilities are endless:
 --------------------------
-No need to setup expensive cluster. The setup takes 5 min and you are good to go. You can do it on one machine. Even on Raspberry Pi
+No need to setup expensive clusters. 
+The setup takes 5 min and you are good to go.
+You can do it on one machine. Even on a Raspberry Pi.
 
-* Use as ML tool may process in real time huge streams of data... while all clients still browse their favorite websites
+* Use as ML tool to process in real time huge streams of data... while all clients still browse their favorite websites
 
-* Use as Big data analytics. Connect to Hadoop HDFS and process even terabytes of data.
+* Use for big data analytics. Connect to Hadoop HDFS and process even terabytes of data.
 
 * Use to safely transfer huge amount of data to remote computers.
 
-* Use as CDN ... Today most websites runs slower with more clients use them.
-But using JSpark you can totally reverse this trend. Build websites that run FASTER the more people use them
+* Use as CDN... Today most websites runs slower when more clients use them.
+But using JS-Spark you can totally reverse this trend. Build websites that run FASTER the more people use them
 
-* Synchronize data between multiple smart phones.. even in Africa
+* Synchronize data between multiple smartphones.. even in Africa
 
 * No expensive cluster setup required!
 
 * Free to use.
 
-How(Getting started with npm)
+How (Getting started with npm)
 =============================
-To add a distributed job cue to anny node app simply:
+To add a distributed job queue to any node app run:
 
         npm i --save js-spark
 
 Look for **Usage with npm**.
 
-Example running multicore jobs in js:
+Example: running multicore jobs in JS:
 ====================================
-### Simple example node multicore jobs
+### Simple example with node multicore jobs
 [example-js-spark-usage](https://github.com/syzer/example-js-spark-usage)
 
 ```bash
@@ -75,19 +80,19 @@ npm install
 ```
 
 
-### Example NLP
+### Example: NLP
 This example shows how to use one of the Natural Language Processing tools called N-Gram
-in distributed manner using jsSpark:
+in a distributed manner using JS-Spark:
 
 [Distributed-N-Gram](https://github.com/syzer/distributedNgram)
 
 
-To if you like to know more about the N-grams please read: 
+If you'd like to know more about N-grams please read: 
 
 [http://en.wikipedia.org/wiki/N-gram](http://en.wikipedia.org/wiki/N-gram) 
 
 
-How(Getting started)
+How (Getting started)
 ====================
 Prerequisites: install `Node.js`, then:
 install grunt and bower,
@@ -97,7 +102,7 @@ sudo npm install -g bower
 sudo npm install -g grunt
 ```
 
-Install js-spark
+Install `js-spark`
 ----------------
 ```bash
 npm i --save js-spark
@@ -115,7 +120,7 @@ Or:
  
         npm start        
         
-After that you may see how the clients do all calculation, and all heavy lifting.
+After that you may see how the clients do the heavy lifting.
 
         
 Usage with npm
@@ -126,7 +131,7 @@ var core = require('jsSpark')({workers:8});
 var jsSpark = core.jsSpark;
 
 jsSpark([20, 30, 40, 50])
-    // this is executed on client side
+    // this is executed on the client
     .map(function addOne(num) {
         return num + 1;
     })
@@ -138,14 +143,14 @@ jsSpark([20, 30, 40, 50])
     })
     .run()
     .then(function(data) {
-        // this is executed on back on server
+        // this is executed on back on the server
         console.log(data);
     })
 ```        
 
-Usage(Examples)
+Usage (Examples)
 ===============
-Client side heavy CPU computation(MapReduce)
+Client side heavy CPU computation (MapReduce)
 --------------------------------------------
 
 ```JavaScript
@@ -195,7 +200,7 @@ jsSpark(_.range(10))
     .reduce(function sumUp(sum, num) {
         return sum + num;
     })
-    // how many times repeat calculations
+    // how many times to repeat calculations
     .run({times: 6})
     .then(function whenClientsFinished(data) {
         // may also get 2 most relevant answers
@@ -227,7 +232,7 @@ task3 = task
 
 More references
 ===============
-This project is about to reimplemented some nice things from the world of big data, so there are of course some nice
+This project involves reimplementing some nice things from the world of big data, so there are of course some nice
 resources you can use to dive into the topic:
 
 * [Map-Reduce revisited](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.104.5859&rep=rep1&type=pdf)
@@ -271,7 +276,7 @@ db.createUser({
 * old mongodb engines can use `db.addUser()` with same API
 * to run without UI db code is not required!
 
-* on first run need to seed the db: change option `seedDB: false` => `seedDB: true`
+* on first run you need to seed the db: change option `seedDB: false` => `seedDB: true`
 on `./private/srv/server/config/environment/development.js`
 
 Tests
