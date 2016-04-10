@@ -281,15 +281,14 @@ Tests
 
 TODO
 ====
-- [ ] remove
-- [ ] service/file -> removed for other module
+- [X] service/file -> removed for other module
 - [ ] di -> separate module
-- [ ] bower for js-spark client
-- [ ] config-> merge diferent config files
-- [ ] server/auth -> do we need that?
-- [ ] server/api/jobs -> separate module?
+- [!] bower for js-spark client
+- [ ] config-> merge different config files
+- [!] server/auth -> split to js-spark-ui module
+- [!] server/api/jobs -> split to js-spark-ui module
 - [ ] split ui
 - [X] more examples
 - [X] example with cli usage (not daemon)
 - [X] example with using thu
-- [ ] .add() is might be broken... maybe fix or remove
+- [?] .add() is might be broken... maybe fix or remove
