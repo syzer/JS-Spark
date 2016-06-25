@@ -242,6 +242,8 @@ resources you can use to dive into the topic:
 Running with UI
 ===============
 
+Normally you do not need to start UI server. But if you want to build an application on top on the js-spark UI server. Feel free to do so.
+
         git clone git@github.com:syzer/JS-Spark.git && cd $_
         npm install
         grunt build
