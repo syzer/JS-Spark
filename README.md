@@ -1,5 +1,7 @@
 What is JS-Spark
 ====
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/syzer/JS-Spark.svg)](https://greenkeeper.io/)
 Distributed real time computation/job/work queue using JavaScript.
 A JavaScript reimagining of the fabulous Apache Spark and Storm projects.
 
