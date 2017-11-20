@@ -27,7 +27,7 @@ Gearman, require time, expensive setup of server, and later setting up/supervisi
 On JS-Spark your clients need just to click on a **URL**, and the server side has one line installation (less than 5 min).
 
 Hadoop is quite slow and requires maintaining a cluster - **we can to do better**.
-Imagine that there's no need to set up expansive cluster/cloud solutions. 
+Imagine that there's no need to set up expensive cluster/cloud solutions. 
 Use web browsers! Easily scale to multiple clients. Clients do not need to install anything like Java or other plugins.
 
 Setup in a matter of minutes and you are good to go.
